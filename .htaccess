@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# ① SI la URL empieza por admin/, envíala SIEMPRE a index.php
+RewriteRule ^admin/?(.*)$ index.php?url=admin/$1 [L,QSA]
+
+# ② NO re‑escribir si es archivo o carpeta real
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# ③ Resto de URLs amigables
+RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
+</IfModule>

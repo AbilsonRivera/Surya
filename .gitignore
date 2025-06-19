@@ -1,0 +1,33 @@
+# Archivos de configuración local
+.env
+config.local.php
+
+# Archivos temporales
+*.tmp
+*.log
+*.cache
+
+# Directorio de uploads (opcional - puedes comentar si quieres subir las imágenes)
+# img/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de desarrollo
+debug_*.php
+test_*.php
+crear_admin.php
+
+# Archivos de editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de Windows
+desktop.ini
+
+# Backups
+*.bak
+*.backup
