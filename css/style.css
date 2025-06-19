@@ -938,11 +938,10 @@ p, .description,
 
 .enfoques-marca {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: white;
     padding: 5% 10%;
-    box-shadow: 2px 2px 8px black;
 }
 
 .titulo-marca {
@@ -951,6 +950,7 @@ p, .description,
     font-weight: bold;
     font-size: clamp(16px, 2vw, 24px);
     margin: 0;
+    text-align: center;
 }
 
 .subtitulo-marca {
@@ -960,8 +960,13 @@ p, .description,
 }
 
 .icono-marca {
-    width: 34px;
-    height: auto;
+    width: 90px;
+    height: 90px;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, var(--color-primary) 0%);
+    border-radius: 50%;
+    padding: 15px;
+    object-fit: contain;
 }
 
 .foto-persona {
@@ -1008,8 +1013,326 @@ p, .description,
 }
 
 .card-title {
-  background-color: #eaeaea;
   font-weight: bold;
+}
+
+.adn-section {
+    padding: 80px 20px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.adn-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+    opacity: 0.05;
+    z-index: -1;
+}
+
+/* Título principal */
+.main-title-container {
+    text-align: center;
+    margin-bottom: 80px;
+    position: relative;
+}
+
+.main-title {
+    font-size: clamp(24px, 4vw, 45px);
+    font-weight: 800;
+    color: var(--color-text);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+    position: relative;
+    display: inline-block;
+}
+
+.main-title::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary), var(--color-verde), var(--color-terciary));
+    background-size: 400% 400%;
+    border-radius: 15px;
+    z-index: -1;
+    animation: gradientShift 4s ease infinite;
+    opacity: 0.1;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.title-underline {
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    margin: 0 auto 20px;
+    border-radius: 2px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scaleX(1); }
+    50% { transform: scaleX(1.2); }
+}
+
+.main-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-secondary);
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Secciones */
+.section-container {
+    margin-bottom: 60px;
+}
+
+.section-header {
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    text-align: left;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-line {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    border-radius: 2px;
+}
+
+/* Grid de tarjetas */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Tarjetas de valores */
+.value-card {
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
+}
+
+.value-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    transition: left 0.5s;
+}
+
+
+.card-inner {
+    position: relative;
+    z-index: 2;
+}
+
+/* Contenedores de iconos */
+.icon-container {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.icon-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    opacity: 0.1;
+    transition: all 0.3s ease;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    color: white;
+    z-index: 2;
+    transition: all 0.3s ease;
+    filter: brightness(0) invert(1);
+}
+
+.value-card:hover .icon-container {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.value-card:hover .icon {
+    transform: scale(1.1);
+}
+
+/* Colores específicos para cada valor */
+.amor {
+    background: var(--color-primary);
+}
+
+.confianza {
+    background: var(--color-verde);
+}
+
+.servicio {
+    background: var(--color-hover);
+}
+
+.alegria {
+    background: #f4a261;
+}
+
+.unidad {
+    background: var(--color-secondary);
+}
+
+.calidad {
+    background: var(--color-terciary);
+}
+
+/* Títulos y descripciones de tarjetas */
+.card-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 15px;
+    transition: color 0.3s ease;
+}
+
+.card-description {
+    font-size: 1rem;
+    color: var(--color-secondary);
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+.value-card:hover .card-title {
+    color: var(--color-terciary);
+}
+
+.value-card:hover .card-description {
+    color: var(--color-text);
+}
+
+/* Animaciones de entrada */
+[data-aos="fade-up"] {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s ease forwards;
+}
+
+[data-delay="100"] { animation-delay: 0.1s; }
+[data-delay="200"] { animation-delay: 0.2s; }
+[data-delay="300"] { animation-delay: 0.3s; }
+[data-delay="400"] { animation-delay: 0.4s; }
+[data-delay="500"] { animation-delay: 0.5s; }
+[data-delay="600"] { animation-delay: 0.6s; }
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .adn-section {
+        padding: 60px 15px;
+    }
+    
+    .main-title-container {
+        margin-bottom: 60px;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        text-align: center;
+    }
+    
+    .section-line {
+        margin: 0 auto;
+    }
+    
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .value-card {
+        padding: 30px 20px;
+    }
+    
+    .icon-container {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .icon {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 2.5rem;
+        letter-spacing: 1px;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .card-title {
+        font-size: 1.5rem;
+    }
+    
+    .card-description {
+        font-size: 0.9rem;
+    }
+}
+
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
 }
 
 /* ============================= */

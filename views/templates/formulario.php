@@ -1,6 +1,6 @@
 <div class="form-section" id="zonaformulario">
   <div class="form-container">
-    <img src="./img/banner/transforma-surya.jpg" alt="Logo alma" width="250" height="auto">
+    <img src="./img/transforma-surya2.png" alt="Logo alma" width="400" height="auto">
   </div>
 
   <div class="info-container">
