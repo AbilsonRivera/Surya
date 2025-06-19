@@ -3,7 +3,8 @@ require_once __DIR__ . '/../admin/models/Miembros.php';
 
 class SobreNosotrosController {
     public function index() {
-        $miembros = Miembros::all(); // Llama al método que obtiene los miembros
+        $administradores = Miembros::getAdministradores(); // Obtiene solo los administradores
+        $profesores = Miembros::getProfesores(); // Obtiene solo los profesores
         require_once 'views/about/index.php';
     }
 }

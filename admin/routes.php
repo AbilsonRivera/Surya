@@ -264,14 +264,12 @@ case (preg_match('#^admin/services/update/(\d+)$#', $url, $m) ? $url : false):
 
 case (preg_match('#^admin/services/delete/(\d+)$#', $url, $m) ? $url : false):
     (new ServiceController)->delete($m[1]);
-    break;
-
-    /* ======== MIEMBROS ======== */
+    break;    /* ======== MIEMBROS ======== */
 case 'admin/miembros':
     (new MiembrosController)->index();
     break;
 
-    case 'admin/miembros/create':
+case 'admin/miembros/create':
     (new MiembrosController)->create();
     break;
 
@@ -281,6 +279,10 @@ case 'admin/miembros/edit':
     } else {
         echo "Falta parámetro id";
     }
+    break;
+
+case (preg_match('#^admin/miembros/update/(\d+)$#', $url, $m) ? $url : false):
+    (new MiembrosController)->update($m[1]);
     break;
 
 case 'admin/miembros/delete':

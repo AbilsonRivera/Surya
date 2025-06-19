@@ -30,7 +30,7 @@ class MiembrosController
             }
 
             Miembros::create($data);
-            header("Location: /admin/miembros");
+            header("Location: ../../admin/miembros");
             exit;
         }
 
@@ -58,7 +58,7 @@ class MiembrosController
                 $data['imagen'] = $miembros['imagen'];
             }
             Miembros::update($id, $data);
-            header("Location: /admin/miembros");
+            header("Location: ../../admin/miembros");
             exit;
         }
         require __DIR__ . '/../views/miembros/edit.php';
@@ -70,7 +70,7 @@ class MiembrosController
         if ($id) {
             Miembros::delete($id);
         }
-        header("Location: /admin/miembros");
+        header("Location: ../../admin/miembros");
         exit;
     }
 }

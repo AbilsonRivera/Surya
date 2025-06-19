@@ -41,14 +41,15 @@
                     <div class="title-underline"></div>
                     <p class="main-subtitle">La esencia que nos define y nos impulsa cada día</p>
                 </div>
-                 <!-- Sección Valores -->
+                <!-- Sección Valores -->
                 <div class="section-container">
                     <div class="section-header text-center">
                         <h2 class="section-title">VALORES</h2>
                         <div class="section-line mx-auto"></div>
                     </div>
 
-                    <div class="cards-grid">                        <div class="value-card" data-aos="fade-up" data-delay="100">
+                    <div class="cards-grid">
+                        <div class="value-card" data-aos="fade-up" data-delay="100">
                             <div class="card-inner">
                                 <div class="icon-container amor">
                                     <div class="icon-bg"></div>
@@ -64,7 +65,7 @@
                                 <div class="icon-container confianza">
                                     <div class="icon-bg"></div>
                                     <img src="img/iconos/confianza.png" alt="Icono confianza" class="icon">
-                                    
+
                                 </div>
                                 <h3 class="card-title">Confianza</h3>
                                 <p class="card-description">Transparencia y seguridad en cada relación</p>
@@ -94,7 +95,7 @@
                                 <div class="icon-container alegria">
                                     <div class="icon-bg"></div>
                                     <img src="img/iconos/alegria.png" alt="Icono alegria" class="icon">
-                                    
+
                                 </div>
                                 <h3 class="card-title">Alegría</h3>
                                 <p class="card-description">Positividad que contagia e inspira</p>
@@ -129,14 +130,32 @@
             <div class="col-12 text-center my-4">
                 <h2 class="page-somos-titulo">SOMOS SURYA</h2>
             </div>
-
             <div class="col-12 text-center my-4">
                 <h5 class="page-somos-subtitulo">Reconocemos la importancia de las habilidades blandas como la energía
                     que potencializa el éxito tanto a nivel individual como organizacional.</h5>
             </div>
             <div class="col-12">
                 <div class="row justify-content-center">
-                    <?php foreach ($miembros as $persona): ?>
+                    <?php foreach ($administradores as $persona): ?>
+                    <div class="col-sm-6 col-lg-3 personas-surya text-center">
+                        <img class="foto-persona" src="./img/miembros/<?= htmlspecialchars($persona['imagen']) ?>"
+                            alt="<?= htmlspecialchars($persona['nombre']) ?>">
+                        <h2 class="nombre-persona py-2"><?= htmlspecialchars($persona['nombre']) ?></h2>
+                        <p class="my-0 py-0" style="text-align: center;"><?= htmlspecialchars($persona['cargo']) ?></p>
+                    </div>
+                    <?php endforeach; ?>                </div>
+            </div>
+
+            <!-- Separador entre secciones -->
+            <div class="col-12 my-5"></div>
+
+            <div class="col-12 text-center my-4">
+                <h2 class="page-somos-titulo">QUIENES ACOMPAÑAN TU PROCESO</h2>
+            </div>
+
+            <div class="col-12">
+                <div class="row justify-content-center">
+                    <?php foreach ($profesores as $persona): ?>
                     <div class="col-sm-6 col-lg-3 personas-surya text-center">
                         <img class="foto-persona" src="./img/miembros/<?= htmlspecialchars($persona['imagen']) ?>"
                             alt="<?= htmlspecialchars($persona['nombre']) ?>">
