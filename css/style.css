@@ -846,10 +846,6 @@ p, .description,
   .btn.btn-custom { font-size: 0.9rem; padding: 0.5rem 1rem; }
 }
 
-
-
-
-
 /* ============================= */
 /* Banner principal - internos          */
 /* ============================= */
@@ -933,7 +929,7 @@ p, .description,
     font-family: 'Helvetica Neue LT Std', sans-serif;
     color: var(--color-text);
     font-size: clamp(16px, 1vw, 24px);
-    text-align: justify;
+    text-align: center;
 }
 
 .enfoques-marca {
@@ -1000,11 +996,39 @@ p, .description,
     border-radius: 0;
     text-align: center;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 450px; /* Altura mínima fija para todas las tarjetas */
 }
 
 .card-producto img {
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  width: 100%;
+  height: 250px; /* Altura fija para todas las imágenes */
+}
+
+.card-producto .row {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+.card-producto .card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+    max-height: calc(1.4em * 4);
+    min-height: calc(1.4em * 4); /* Altura fija para la descripción */
+    margin-bottom: 15px;
 }
 
 .price-tag {
@@ -1012,8 +1036,32 @@ p, .description,
   color: white;
 }
 
-.card-title {
+.card-title-producto {
   font-weight: bold;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 5px;
+  width: 100%;
+  flex: 1;
+}
+
+/* Estilos para el contenedor de productos */
+.producto {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-bottom: 30px;
+}
+
+.producto .card-producto {
+    flex: 1;
+}
+
+/* Asegurar que el botón siempre esté en la parte inferior */
+.card-producto .btn {
+    margin-top: auto;
 }
 
 .adn-section {
@@ -1227,7 +1275,7 @@ p, .description,
 }
 
 /* Títulos y descripciones de tarjetas */
-.card-title {
+.card-title-valor {
     font-size: 1.8rem;
     font-weight: 600;
     color: var(--color-text);
@@ -1242,7 +1290,7 @@ p, .description,
     font-weight: 400;
 }
 
-.value-card:hover .card-title {
+.value-card:hover .card-title-valor {
     color: var(--color-terciary);
 }
 
@@ -1315,12 +1363,11 @@ p, .description,
         font-size: 2.5rem;
         letter-spacing: 1px;
     }
-    
-    .section-title {
+      .section-title {
         font-size: 1.8rem;
     }
     
-    .card-title {
+    .card-title-valor {
         font-size: 1.5rem;
     }
     
@@ -1355,7 +1402,7 @@ p, .description,
   object-fit: cover;
 }
 
-.clase-title {
+.card-title-clase {
   font-weight: bold;
 }
 
@@ -1365,4 +1412,248 @@ p, .description,
 
 .clase-txt {
   text-align: left;
+}
+
+/* ============================= */
+/* Botón Agregar al Carrito */
+/* ============================= */
+
+.btn-custom-cart {
+    background-color: #cc9425;
+    border-color: #cc9425;
+    color: white;
+}
+
+.btn-custom-cart:hover {
+    background-color: #b8851f;
+    border-color: #b8851f;
+    color: white;
+}
+
+.btn-custom-cart:focus, .btn-custom-cart:active {
+    background-color: #a37619;
+    border-color: #a37619;
+    color: white;
+    box-shadow: 0 0 0 0.2rem rgba(204, 148, 37, 0.25);
+}
+
+/* ============================= */
+/* Banner Flotante */
+/* ============================= */
+
+.banner-flotante {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 500px;
+    height: 180px;
+    z-index: 1000;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    animation: slideInLeft 0.5s ease-out;
+    border: 2px solid #cc9425;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.banner-flotante:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+.banner-flotante img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.btn-close-banner {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    z-index: 1001;
+    transition: all 0.3s ease;
+}
+
+.btn-close-banner:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.banner-flotante.slide-out {
+    animation: slideOutLeft 0.5s ease-in forwards;
+}
+
+/* Responsive para dispositivos móviles */
+@media (max-width: 768px) {
+    .banner-flotante {
+        width: 280px;
+        height: 100px;
+        bottom: 10px;
+        left: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner-flotante {
+        width: 250px;
+        height: 90px;
+        bottom: 10px;
+        left: 10px;
+    }
+}
+
+/* ============================= */
+/* Cards de Clases Reservas (altura uniforme) */
+/* ============================= */
+
+.card-clases-reservas {
+    border-radius: 0;
+    text-align: center;
+    border: 2px solid var(--color-primary);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    height: 100%; /* Asegura que la card llene su contenedor */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-clases-reservas img {
+    height: 200px; /* Altura fija para todas las imágenes */
+    object-fit: cover; /* Mantiene proporción y recorta si es necesario */
+    object-position: center;
+    width: 100%;
+}
+
+.card-title-clase-reservas {
+    font-weight: bold;
+    min-height: 3rem; /* Altura mínima para títulos */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.card-title-clase-reservas h5 {
+    margin: 0;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.descripcion-clase-reservas {
+    padding: 10px 20px 20px;
+    flex: 1; /* Ocupa el espacio disponible */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.descripcion-clase-reservas p {
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+    text-align: justify;
+}
+
+.card-clases-reservas .py-2 {
+    margin-top: auto; /* Empuja el botón hacia abajo */
+    padding: 1rem;
+}
+
+/* Contenedor de las cards para altura uniforme en filas */
+.producto {
+    display: flex;
+    height: 100%;
+}
+
+.producto .card-clases-reservas {
+    width: 100%;
+}
+
+/* ============================= */
+/* Imagen de transformación con sombra responsive */
+/* ============================= */
+
+.img-transformacion {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    box-shadow: -70px -58px 0px 17px rgba(213, 154, 53, 0.44);
+    -webkit-box-shadow: -70px -58px 0px 17px rgba(213, 154, 53, 0.44);
+    -moz-box-shadow: -70px -58px 0px 17px rgba(213, 154, 53, 0.44);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Media queries para ajustar la sombra en diferentes tamaños */
+@media (max-width: 992px) {
+    .img-transformacion {
+        max-width: 350px;
+        box-shadow: -50px -40px 0px 12px rgba(213, 154, 53, 0.44);
+        -webkit-box-shadow: -50px -40px 0px 12px rgba(213, 154, 53, 0.44);
+        -moz-box-shadow: -50px -40px 0px 12px rgba(213, 154, 53, 0.44);
+    }
+}
+
+@media (max-width: 768px) {
+    .img-transformacion {
+        max-width: 300px;
+        box-shadow: -35px -30px 0px 10px rgba(213, 154, 53, 0.44);
+        -webkit-box-shadow: -35px -30px 0px 10px rgba(213, 154, 53, 0.44);
+        -moz-box-shadow: -35px -30px 0px 10px rgba(213, 154, 53, 0.44);
+    }
+}
+
+@media (max-width: 576px) {
+    .img-transformacion {
+        max-width: 250px;
+        box-shadow: -25px -20px 0px 8px rgba(213, 154, 53, 0.44);
+        -webkit-box-shadow: -25px -20px 0px 8px rgba(213, 154, 53, 0.44);
+        -moz-box-shadow: -25px -20px 0px 8px rgba(213, 154, 53, 0.44);
+    }
+}
+
+@media (max-width: 400px) {
+    .img-transformacion {
+        max-width: 200px;
+        box-shadow: -18px -15px 0px 6px rgba(213, 154, 53, 0.44);
+        -webkit-box-shadow: -18px -15px 0px 6px rgba(213, 154, 53, 0.44);
+        -moz-box-shadow: -18px -15px 0px 6px rgba(213, 154, 53, 0.44);
+    }
 }

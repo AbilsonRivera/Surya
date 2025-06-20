@@ -74,16 +74,22 @@ case 'admin/servicios':
 
 case 'admin/servicios/create':
     (new ServicioController)->create();  break;
-case 'admin/servicios/store':
-    (new ServicioController)->store();   break;
 
-case (preg_match('#^admin/servicios/edit/(\d+)$#',$url,$m)?$url:false):
-    (new ServicioController)->edit($m[1]);   break;
-case (preg_match('#^admin/servicios/update/(\d+)$#',$url,$m)?$url:false):
-    (new ServicioController)->update($m[1]); break;
+case 'admin/servicios/edit':
+    if (isset($_GET['id'])) {
+        (new ServicioController)->edit($_GET['id']);
+    } else {
+        echo "Falta parámetro id";
+    }
+    break;
 
-case (preg_match('#^admin/servicios/delete/(\d+)$#',$url,$m)?$url:false):
-    (new ServicioController)->delete($m[1]); break;
+case 'admin/servicios/delete':
+    if (isset($_GET['id'])) {
+        (new ServicioController)->delete($_GET['id']);
+    } else {
+        echo "Falta parámetro id";
+    }
+    break;
 
 
 
@@ -204,18 +210,24 @@ case (preg_match('#^admin/agenda/(\d+)/config/store$#', $url, $m) ? $url : false
 /* crear producto */
 case 'admin/productos/create':
     (new ProductosController)->create(); break;
-case 'admin/productos/store':
-    (new ProductosController)->store(); break;
 
 /* editar producto */
-case (preg_match('#^admin/productos/edit/(\d+)$#',$url,$m)?$url:false):
-    (new ProductosController)->edit($m[1]); break;
-case (preg_match('#^admin/productos/update/(\d+)$#',$url,$m)?$url:false):
-    (new ProductosController)->update($m[1]); break;
+case 'admin/productos/edit':
+    if (isset($_GET['id'])) {
+        (new ProductosController)->edit($_GET['id']);
+    } else {
+        echo "Falta parámetro id";
+    }
+    break;
 
 /* eliminar producto */
-case (preg_match('#^admin/productos/delete/(\d+)$#',$url,$m)?$url:false):
-    (new ProductosController)->delete($m[1]); break;
+case 'admin/productos/delete':
+    if (isset($_GET['id'])) {
+        (new ProductosController)->delete($_GET['id']);
+    } else {
+        echo "Falta parámetro id";
+    }
+    break;
  
 
 case 'admin/ajax_login':
@@ -291,6 +303,24 @@ case 'admin/miembros/delete':
     } else {
         echo "Falta parámetro id";
     }
+    break;
+
+/* AJAX Rutas para productos - categorías */
+case 'admin/productos/crear-categoria':
+    (new ProductosController)->crearCategoria();
+    break;
+
+case 'admin/productos/eliminar-categoria':
+    (new ProductosController)->eliminarCategoria();
+    break;
+
+/* AJAX Rutas para productos - proteínas */
+case 'admin/productos/crear-proteina':
+    (new ProductosController)->crearProteina();
+    break;
+
+case 'admin/productos/eliminar-proteina':
+    (new ProductosController)->eliminarProteina();
     break;
     
 

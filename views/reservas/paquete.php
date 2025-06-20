@@ -27,7 +27,7 @@
                         <p><?= $articulo['descripcion'] ?></p>
                         <p>N° de clases: <?= $articulo['clases'] ?></p>
                         <p>Vigencia: <?= $articulo['vigencia'] ?></p>
-                        <p>Precio: $ <?= $articulo['vigencia'] ?></p>
+                        <p>Precio: $ <?= number_format((int)$articulo['precio'], 0, ',', '.') ?></p>
                         <form id="formReservaInicial" onsubmit="mostrarModalReserva(event)">
                             <input type="hidden" id="clase_nombre" value="<?= htmlspecialchars($articulo['nombre']) ?>">
                             <button type="submit" class="btn btn-agendar">Siguiente</button>

@@ -1,6 +1,5 @@
-<div class="form-section" id="zonaformulario">
-  <div class="form-container">
-    <img src="./img/transforma-surya2.png" alt="Logo alma" width="400" height="auto">
+<div class="form-section" id="zonaformulario">  <div class="form-container">
+    <img src="./img/img1.jpg" alt="Logo alma" class="img-transformacion">
   </div>
 
   <div class="info-container">

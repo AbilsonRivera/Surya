@@ -1,7 +1,7 @@
 <?php include __DIR__.'/../../layout/header.php'; ?>
 
 <h3>Profesionales</h3>
-<a href="/admin/agenda/profesionales/create" class="btn btn-success mb-3">Nuevo</a>
+<a href="../../admin/agenda/profesionales/create" class="btn btn-success mb-3">Nuevo</a>
 
 <div class="table-responsive">
   <table class="table table-striped align-middle">
@@ -24,7 +24,7 @@
         <!-- Foto -->
         <td>
           <?php if (!empty($p['foto'])): ?>
-            <img src="/img/<?= htmlspecialchars($p['foto']) ?>"
+            <img src="../../img/<?= htmlspecialchars($p['foto']) ?>"
                  style="width:60px;height:60px;object-fit:cover" class="rounded">
           <?php else: ?>
             <span class="text-muted">—</span>
@@ -41,9 +41,9 @@
 
         <!-- Botones -->
         <td>
-          <a href="/admin/agenda/profesionales/edit/<?= $p['idprof'] ?>"
+          <a href="../../admin/agenda/profesionales/edit/<?= $p['idprof'] ?>"
              class="btn btn-sm btn-primary mb-1">Editar</a>
-          <a href="/admin/agenda/<?= $p['idprof'] ?>/config"
+          <a href="../../admin/agenda/<?= $p['idprof'] ?>/config"
              class="btn btn-sm btn-warning">Agenda</a>
         </td>
       </tr>

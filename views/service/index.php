@@ -13,7 +13,7 @@ $heroImg = !empty($servicio['image'])
     <div class="container content-pages px-4">
         <h2 class="hero-title"><?= htmlspecialchars($servicio['titulo']) ?></h2> 
         <p class="pages-text"><?= $servicio['descripcion'] ?></p> 
-        <h4 class="pages-link">Inicio > <?= htmlspecialchars($servicio['subtitulo']) ?></span></h4> 
+        <h4 class="pages-link"><a href="./" style="color: inherit; text-decoration: none;">Inicio</a> > <?= htmlspecialchars($servicio['subtitulo']) ?></h4> 
     </div>
 </div>
 
@@ -39,9 +39,9 @@ $heroImg = !empty($servicio['image'])
                         <p style="text-align: justify;"><?= nl2br(htmlspecialchars($item['descripcion'])) ?></p>
                         <?php if ($i === count($detalles) - 1): ?>
                             <?php if ($servicio['slug'] == "alma"): ?>
-                                <a href="/alma/#nuestras-clases" class="btn btn-agendar">Agendar Cita</a>
+                                <a href="./servicios" class="btn btn-agendar">Agendar Cita</a>
                             <?php else : ?>
-                                <a href="/alma" class="btn btn-agendar">Agendar Cita</a>
+                                <a href="./servicios" class="btn btn-agendar">Agendar Cita</a>
                             <?php endif; ?>
                         <?php endif; ?>
                     </div>
@@ -74,13 +74,13 @@ $heroImg = !empty($servicio['image'])
                                 
                                 <!-- Filtros de categorías -->
                                 <div class="col-12 mb-4">
-                                    <div class="row">
+                                    <div class="row justify-content-center">
                                         <div class="col-12">
-                                            <div class="btn-group w-100" role="group" aria-label="Filtros de platos">
-                                                <div class="row w-100">
-                                                    <button type="button" class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark active" data-filtro="all">Todo</button>
+                                            <div class="btn-group w-100 justify-content-center" role="group" aria-label="Filtros de platos">
+                                                <div class="row w-100 justify-content-center g-2">
+                                                    <button type="button" class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark active mb-2" data-filtro="all">Todo</button>
                                                     <?php foreach ($categorias as $cat): ?>
-                                                        <button type="button" class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark" data-filtro="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['nombre']) ?></button>
+                                                        <button type="button" class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark mb-2" data-filtro="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['nombre']) ?></button>
                                                     <?php endforeach; ?>
                                                 </div>
                                             </div>
@@ -94,17 +94,19 @@ $heroImg = !empty($servicio['image'])
                                         <div class="card-producto border-0">
                                             <img src="./img/productos/<?= htmlspecialchars($producto['imagen']) ?>" class="card-img-top" alt="<?= htmlspecialchars($producto['nombre']) ?>">
                                             <div class="row" style="width: 100%; margin: 0;">
-                                                <div class="col-8 px-0 py-2 card-title">
-                                                    <h6 class="m-0"><?= htmlspecialchars($producto['nombre']) ?></h6>
-                                                </div>
-                                                <div class="col-4 price-tag px-0 py-2">
-                                                    <h5 class="m-0">$<?= number_format($producto['precio'], 2) ?></h5>
+                                                <div class="col-12 d-flex justify-content-between align-items-center px-2 py-2">
+                                                    <div class="card-title-producto">
+                                                        <h6 class="m-0"><?= htmlspecialchars($producto['nombre']) ?></h6>
+                                                    </div>
+                                                    <div class="price-tag px-2 py-1">
+                                                        <h5 class="m-0">$<?= number_format((int)$producto['precio'], 0, ',', '.') ?></h5>
+                                                    </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <p class="card-text text-start my-2"><?= htmlspecialchars($producto['descripcion']) ?></p>
                                                 </div>
                                             
-                                                <button class="btn btn-primary w-100" onclick="agregarCarrito(<?= $producto['id'] ?>, '<?= $producto['nombre'] ?>', <?= $producto['precio'] ?>)">Agregar al carrito</button>
+                                                <button class="btn btn-custom-cart w-100" onclick="agregarCarrito(<?= $producto['id'] ?>, '<?= $producto['nombre'] ?>', <?= $producto['precio'] ?>, <?= $producto['lleva_proteina'] ?? 0 ?>)">Agregar al carrito</button>
                                             </div>
                                         </div>
                                     </div>
@@ -117,6 +119,14 @@ $heroImg = !empty($servicio['image'])
                 </div>
             </div>
             
+            <!-- Banner flotante - solo para página de cuerpo -->
+            <?php if ($servicio['slug'] == "cuerpo"): ?>
+                <div id="bannerFlotante" class="banner-flotante" onclick="abrirWhatsApp()">
+                    <button type="button" class="btn-close-banner" onclick="event.stopPropagation(); cerrarBanner()">×</button>
+                    <img src="./img/banner/cuerpo.png" alt="Banner promocional" class="img-fluid">
+                </div>
+            <?php endif; ?>
+            
             <!-- Modal del carrito -->
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCarrito" data-bs-scroll="true" data-bs-backdrop="false" aria-labelledby="offcanvasCarritoLabel">
                 <div class="offcanvas-header">
@@ -127,7 +137,7 @@ $heroImg = !empty($servicio['image'])
                     <!-- Aquí se mostrará el contenido del carrito -->
                 </div>
                 <div class="offcanvas-footer">
-                    <button class="btn btn-primary w-100 mt-3" onclick="finalizarCompra()">Finalizar compra</button>
+                    <button class="btn btn-custom-cart w-100 mt-3" onclick="finalizarCompra()">Finalizar compra</button>
                 </div>
             </div>
         <?php endif; ?>
@@ -170,12 +180,13 @@ require_once 'views/galeria/index.php';
     let carrito = [];
     
     // Agregar productos al carrito
-    function agregarCarrito(id, nombre, precio) {
+    function agregarCarrito(id, nombre, precio, lleva_proteina = 0) {
 
         carrito.push({
             producto_id: id,
             nombre_producto: nombre,
-            precio_producto: precio
+            precio_producto: precio,
+            lleva_proteina: lleva_proteina
         });
     
         mostrarCarrito(); // actualizar contenido
@@ -206,8 +217,8 @@ require_once 'views/galeria/index.php';
                 <div class="row border-bottom py-2" id="producto_${index}">
                     <div class="col-sm-12 col-md-5">
                         <p><strong>${item.nombre_producto}</strong></p>
-                        <p>Precio unitario: $${item.precio_producto.toFixed(2)}</p>
-                        <p id="subtotal_${index}">Subtotal: $${subtotal.toFixed(2)}</p>
+                        <p>Precio unitario: $${Math.round(item.precio_producto).toLocaleString('es-CO')}</p>
+                        <p id="subtotal_${index}">Subtotal: $${Math.round(subtotal).toLocaleString('es-CO')}</p>
                         <button class="btn btn-sm btn-outline-danger mt-2" onclick="eliminarProducto(${index})">Eliminar</button>
                     </div>
 
@@ -216,26 +227,30 @@ require_once 'views/galeria/index.php';
                         <input type="number" class="form-control" min="1" value="${item.cantidad}" id="cantidad_${index}" onchange="actualizarCantidad(${index})">
                     </div>
 
+                    ${item.lleva_proteina == 1 ? `
                     <div class="col-sm-12 col-md-4 mb-2">
                         <p class="m-0 p-0">Proteína</p>
                         <div id="contenedor_proteinas_${index}">
                             <!-- Selects de proteínas -->
                         </div>
                     </div>
+                    ` : '<div class="col-sm-12 col-md-4 mb-2"></div>'}
                 </div>
             `;
 
             contenido.innerHTML += productoHTML;
 
-            // Inicializar selects de proteínas
-            actualizarProteinas(index);
+            // Inicializar selects de proteínas solo si el producto las requiere
+            if (item.lleva_proteina == 1) {
+                actualizarProteinas(index);
+            }
         });
 
         // Mostrar total general
         const totalHTML = `
             <div class="row mt-4">
                 <div class="col-12 text-end">
-                    <h5><strong>Total: $<span id="totalGeneral">${totalGeneral.toFixed(2)}</span></strong></h5>
+                    <h5><strong>Total: $<span id="totalGeneral">${Math.round(totalGeneral).toLocaleString('es-CO')}</span></strong></h5>
                 </div>
             </div>
         `;
@@ -276,9 +291,19 @@ require_once 'views/galeria/index.php';
 
     // Establecer proteina por cantidad de producto
     function actualizarProteinas(index) {
+        const item = carrito[index];
+        
+        // Solo proceder si el producto requiere proteínas
+        if (item.lleva_proteina != 1) {
+            return;
+        }
+        
         const proteinas = <?= json_encode($proteinas) ?>;
         const cantidad = parseInt(document.getElementById(`cantidad_${index}`).value);
         const contenedor = document.getElementById(`contenedor_proteinas_${index}`);
+        
+        if (!contenedor) return; // Si no existe el contenedor, salir
+        
         contenedor.innerHTML = ""; // Limpiar
 
         for (let i = 0; i < cantidad; i++) {
@@ -301,10 +326,12 @@ require_once 'views/galeria/index.php';
 
         // Actualizar subtotal
         const subtotal = carrito[index].precio_producto * cantidad;
-        document.getElementById(`subtotal_${index}`).innerText = `Subtotal: $${subtotal.toFixed(2)}`;
+        document.getElementById(`subtotal_${index}`).innerText = `Subtotal: $${Math.round(subtotal).toLocaleString('es-CO')}`;
 
-        // Actualizar selects de proteínas
-        actualizarProteinas(index);
+        // Actualizar selects de proteínas solo si el producto las requiere
+        if (carrito[index].lleva_proteina == 1) {
+            actualizarProteinas(index);
+        }
 
         // Recalcular total general
         let total = 0;
@@ -312,7 +339,7 @@ require_once 'views/galeria/index.php';
             total += item.precio_producto * (item.cantidad || 1);
         });
 
-        document.getElementById("totalGeneral").innerText = total.toFixed(2);
+        document.getElementById("totalGeneral").innerText = Math.round(total).toLocaleString('es-CO');
     }
     
     // Enviar pedido a WhatsApp
@@ -330,35 +357,66 @@ require_once 'views/galeria/index.php';
             const subtotal = item.precio_producto * cantidad;
             total += subtotal;
 
-            // Proteínas seleccionadas
+            // Proteínas seleccionadas - solo si el producto las requiere
             let proteinasTexto = "";
-            const contenedor = document.getElementById(`contenedor_proteinas_${index}`);
-            if (contenedor) {
-                const selects = contenedor.querySelectorAll("select");
-                selects.forEach((sel, i) => {
-                    if (sel.value) {
-                        proteinasTexto += `   - Proteína ${i + 1}: ${sel.options[sel.selectedIndex].text}%0A`;
-                    }
-                });
+            if (item.lleva_proteina == 1) {
+                const contenedor = document.getElementById(`contenedor_proteinas_${index}`);
+                if (contenedor) {
+                    const selects = contenedor.querySelectorAll("select");
+                    selects.forEach((sel, i) => {
+                        if (sel.value) {
+                            proteinasTexto += `   - Proteína ${i + 1}: ${sel.options[sel.selectedIndex].text}%0A`;
+                        }
+                    });
+                }
             }
 
             mensaje += `*${item.nombre_producto}*%0A`;
             mensaje += `Cantidad: ${cantidad}%0A`;
-            mensaje += `Precio unitario: $${item.precio_producto.toFixed(2)}%0A`;
-            mensaje += `Subtotal: $${subtotal.toFixed(2)}%0A`;
+            mensaje += `Precio unitario: $${Math.round(item.precio_producto).toLocaleString('es-CO')}%0A`;
+            mensaje += `Subtotal: $${Math.round(subtotal).toLocaleString('es-CO')}%0A`;
             if (proteinasTexto !== "") {
                 mensaje += `Proteínas:%0A${proteinasTexto}`;
             }
             mensaje += `%0A`;
         });
 
-        mensaje += `*Total del pedido: $${total.toFixed(2)}*`;
+        mensaje += `*Total del pedido: $${Math.round(total).toLocaleString('es-CO')}*`;
 
-        // Número de WhatsApp (ajusta según tu país y número)
-        const numero = "573177183266";
+        // Número de WhatsApp
+        const numero = "573150922525";
         const url = `https://api.whatsapp.com/send?phone=${numero}&text=${mensaje}`;
 
         window.open(url, "_blank");
     }
+
+    // Función para cerrar el banner flotante
+    function cerrarBanner() {
+        const banner = document.getElementById('bannerFlotante');
+        if (banner) {
+            banner.classList.add('slide-out');
+            setTimeout(() => {
+                banner.style.display = 'none';
+            }, 500);
+        }
+    }
+
+    // Función para abrir WhatsApp desde el banner
+    function abrirWhatsApp() {
+        const numero = "573150922525";
+        const mensaje = "¡Hola! Me interesa conocer más sobre sus productos.";
+        const url = `https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(mensaje)}`;
+        window.open(url, "_blank");
+    }
+
+    // Mostrar el banner
+    <?php if ($servicio['slug'] == "cuerpo"): ?>
+    document.addEventListener('DOMContentLoaded', function() {
+        const banner = document.getElementById('bannerFlotante');
+        if (banner) {
+           
+        }
+    });
+    <?php endif; ?>
 
 </script>

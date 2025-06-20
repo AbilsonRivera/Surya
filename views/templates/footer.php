@@ -4,9 +4,9 @@
     </div>
     <nav class="menu my-3">
       <a href="/somos">Somos</a>
-      <a href="/alma">Alma</a>
       <a href="/mente">Mente</a>
       <a href="/cuerpo">Cuerpo</a>
+      <a href="/alma">Alma</a>
       <a href="/contacto">Contáctanos</a>
     </nav>
     <div class="social d-flex justify-content-center my-3">

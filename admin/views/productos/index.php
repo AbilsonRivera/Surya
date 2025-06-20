@@ -10,7 +10,7 @@ include __DIR__.'/../layout/header.php';
   <!-- encabezado + botón -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h3 class="mb-0">Productos del Menú</h3>
-    <a href="/admin/productos/create" class="btn btn-success">
+    <a href="../admin/productos/create" class="btn btn-success">
       <i class="bi bi-plus-lg"></i> Nuevo artículo
     </a>
   </div>
@@ -24,6 +24,7 @@ include __DIR__.'/../layout/header.php';
             <th>ID</th>
             <th>Título</th>
             <th>Categoría</th>
+            <th>Precio</th>
             <th style="width:140px">Acciones</th>
           </tr>
         </thead>
@@ -33,13 +34,14 @@ include __DIR__.'/../layout/header.php';
     <td><?= $p['id'] ?></td>
     <td><?= htmlspecialchars($p['nombre']) ?></td>
     <td><?= htmlspecialchars($p['categoria'] ?? 'Sin categoría') ?></td>
+    <td>$<?= number_format((int)$p['precio'], 0, ',', '.') ?></td>
     <td>
-      <a href="/admin/productos/edit/<?= $p['id'] ?>" class="btn btn-sm btn-primary">
+      <a href="../admin/productos/edit?id=<?= $p['id'] ?>" class="btn btn-sm btn-primary">
         <i class="bi bi-pencil"></i></a>
-      <a href="/admin/productos/delete/<?= $p['id'] ?>" class="btn btn-sm btn-danger"
+      <a href="../admin/productos/delete?id=<?= $p['id'] ?>" class="btn btn-sm btn-danger"
          onclick="return confirm('¿Eliminar este artículo?')">
          <i class="bi bi-trash"></i></a>
-      <a href="/productos/<?= $p['id'] ?>" target="_blank" class="btn btn-sm btn-secondary">
+      <a href="../productos/<?= $p['id'] ?>" target="_blank" class="btn btn-sm btn-secondary">
          <i class="bi bi-box-arrow-up-right"></i></a>
     </td>
   </tr>

@@ -25,9 +25,9 @@
         <td><?= $s['slug'] ?></td>
         <td><?= htmlspecialchars($s['subtitulo']) ?></td>
         <td>
-          <a href="../admin/servicios/edit/<?= $s['idser'] ?>" class="btn btn-sm btn-primary">
+          <a href="../admin/servicios/edit?id=<?= $s['idser'] ?>" class="btn btn-sm btn-primary">
             <i class="bi bi-pencil"></i></a>
-          <a href="../admin/servicios/delete/<?= $s['idser'] ?>" class="btn btn-sm btn-danger"
+          <a href="../admin/servicios/delete?id=<?= $s['idser'] ?>" class="btn btn-sm btn-danger"
              onclick="return confirm('¿Eliminar este servicio?')">
             <i class="bi bi-trash"></i></a>
         </td>

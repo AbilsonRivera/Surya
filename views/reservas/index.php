@@ -1,89 +1,3 @@
-
-<style>
-/* FullCalendar Estilo Figma Moderno */
-.fc {
-    font-family: 'Lato', 'Inter', Arial, sans-serif !important;
-    background: #f6f8fa;
-    border-radius: 18px;
-    padding: 16px;
-    box-shadow: 0 2px 10px 0 rgba(60,60,110,0.05);
-}
-
-.fc-toolbar-title {
-    font-weight: 800;
-    font-size: 2rem;
-    color: #230904;
-    letter-spacing: -0.5px;
-}
-.fc-col-header-cell-cushion {
-    color: #230904;
-}
-
-.fc-button {
-    background: #e9ecef;
-    border: none;
-    color: #230904;
-    border-radius: 10px !important;
-    font-weight: 600;
-    transition: background .2s, color .2s;
-}
-.fc-button-primary {
-    background: #d59a35 !important;
-    color: white !important;
-    border: none !important;
-    margin: 2px !important;
-}
-.fc-button-primary:not(:disabled):hover,
-.fc-button-primary:focus {
-    background:rgb(255, 255, 255) !important;
-    color: #230904 !important;
-    border: 2px solid #230904 !important;
-}
-.fc-today-button {
-    background: #7c9167 !important;
-    color: #3e4b1f !important;
-    border: none !important;
-}
-.fc-col-header-cell {
-    background: #fff;
-    color: #20c997;
-    font-weight: 700;
-    font-size: 1.1rem;
-}
-.fc-timegrid-slot-label {
-    color: #230904;
-    font-size: 0.97rem;
-}
-.fc-event {
-    border: none !important;
-    box-shadow: 0 2px 4px 0 rgba(32,201,151,.09);
-    padding: 0 5px;
-    letter-spacing: -0.2px;
-    height: max-content;
-}
-.fc-event-title {
-    font-weight: 700;
-}
-.fc-daygrid-event-dot {
-    background: #20c997 !important;
-}
-.fc-timegrid-event {
-    background: #7c9167 !important;
-}
-.fc-timegrid-now-indicator-arrow {
-    border-top: 2px solid #f44336 !important;
-}
-.fc-timegrid-now-indicator-line {
-    background: #f44336 !important;
-}
-/* Sombra suave */
-#calendar-servicio, .fc {
-    box-shadow: 0 4px 32px 0 rgba(60,80,140,0.06);
-    border-radius: 16px;
-    background: #fff;
-}
-</style>
-
 <!-- Sección Clases y Calendario -->
 <div class="section-page-somos" id="nuestras-clases">
     <div class="container">
@@ -95,38 +9,83 @@
                 <!-- Filtros de categorías -->
                 <div class="row g-4">
                     <div class="col-12 mb-4">
-                        <div class="btn-group w-100" role="group" aria-label="Filtros de servicios">
-                            <div class="row w-100">
-                                <button type="button" class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark active" data-filtro="all">Todo</button>
-                                <?php foreach ($tipoClases as $tipo): ?>
-                                    <?php if ($tipo['categoria'] == 1): ?>
-                                        <button type="button" class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark"
-                                            data-filtro="<?= $tipo['id'] ?>">
-                                            <?= htmlspecialchars($tipo['servicio']) ?>
-                                        </button>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
+                        <div class="btn-group w-100 justify-content-center" role="group"
+                            aria-label="Filtros de servicios">
+                            <div class="row w-100 justify-content-center g-2">
+                                <?php
+                                // Orden personalizado de los filtros
+                                $ordenFiltros = [
+                                    'Calendario', 
+                                    'Yoga y otros', 
+                                    'Eventos y talleres', 
+                                    'Masaje & icebath'
+                                ];
+                                
+                                // Filtrar solo categorías activas (categoria = 1)
+                                $tiposCategorias = array_filter($tipoClases, function($tipo) {
+                                    return $tipo['categoria'] == 1;
+                                });
+                                
+                                // Crear array asociativo para ordenamiento
+                                $tiposOrdenados = [];
+                                foreach ($tiposCategorias as $tipo) {
+                                    $tiposOrdenados[$tipo['servicio']] = $tipo;
+                                }
+                                
+                                // Mostrar botones en el orden personalizado
+                                foreach ($ordenFiltros as $nombreServicio) {
+                                    if (isset($tiposOrdenados[$nombreServicio])) {
+                                        $tipo = $tiposOrdenados[$nombreServicio];
+                                        ?>
+                                <button type="button" class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark mb-2"
+                                    data-filtro="<?= $tipo['id'] ?>">
+                                    <?= htmlspecialchars($tipo['servicio']) ?>
+                                </button>
+                                <?php
+                                        // Eliminar del array para que no se repita
+                                        unset($tiposOrdenados[$nombreServicio]);
+                                    }
+                                }
+                                
+                                // Mostrar cualquier categoría restante que no esté en el orden personalizado
+                                foreach ($tiposOrdenados as $tipo) {
+                                    ?>
+                                <button type="button" class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark mb-2"
+                                    data-filtro="<?= $tipo['id'] ?>">
+                                    <?= htmlspecialchars($tipo['servicio']) ?>
+                                </button>
+                                <?php
+                                }
+                                
+                                // Finalmente mostrar "Todo" al final
+                                ?>
+                                <button type="button"
+                                    class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark active mb-2"
+                                    data-filtro="all">Todo</button>
                             </div>
                         </div>
                     </div>
                     <!-- Cards de clases -->
                     <?php foreach ($clases as $clase): ?>
-                        <div class="col-sm-6 col-md-4 col-lg-3 producto" data-categoria="<?= $clase['id_servicio'] ?>">
-                            <div class="card-clases">
-                                <div class="row" style="width: 100%; margin: 0;">
-                                    <img src="./img/<?= htmlspecialchars($clase['imagen']) ?>" class="p-0 m-0" alt="<?= htmlspecialchars($clase['nombre']) ?>">
-                                    <div class="col-12 px-0 pt-2 clase-title">
-                                        <h5><?= htmlspecialchars($clase['nombre']) ?></h5>
-                                    </div>
-                                    <div class="col-12 px-3 py-0 descripcion_clase">
-                                        <p class="mt-2" style="text-align: justify;"><?= htmlspecialchars($clase['descripcion']) ?></p>
-                                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 clase-item" data-categoria="<?= $clase['id_servicio'] ?>">
+                        <div class="card-clases-reservas">
+                            <div class="row" style="width: 100%; margin: 0;">
+                                <img src="./img/<?= htmlspecialchars($clase['imagen']) ?>" class="p-0 m-0"
+                                    alt="<?= htmlspecialchars($clase['nombre']) ?>">
+                                <div class="col-12 px-0 pt-2 card-title-clase-reservas">
+                                    <h5><?= htmlspecialchars($clase['nombre']) ?></h5>
                                 </div>
-                                <div class="py-2">
-                                    <a href="/servicios/clase/<?= htmlspecialchars($clase['slug']) ?>" class="btn btn-agendar py-2">Reservar</a>
+                                <div class="col-12 px-3 py-0 descripcion-clase-reservas">
+                                    <p class="mt-2" style="text-align: justify;">
+                                        <?= htmlspecialchars($clase['descripcion']) ?></p>
                                 </div>
                             </div>
+                            <div class="py-2">
+                                <a href="./servicios/clase/<?= htmlspecialchars($clase['slug']) ?>"
+                                    class="btn btn-agendar py-2">Reservar</a>
+                            </div>
                         </div>
+                    </div>
                     <?php endforeach; ?>
                 </div>
                 <!-- Calendario -->
@@ -143,39 +102,48 @@
                 <div class="row g-4" id="productos-grid">
                     <!-- Filtros de modalidad -->
                     <div class="col-12 mb-4">
-                        <div class="btn-group btn-paquete w-100" role="group" aria-label="Filtros de Paquetes">
-                            <div class="row w-100">
-                                <button type="button" class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark active" data-filtro-paquete="all">Todo</button>
+                        <div class="btn-group btn-paquete w-100 justify-content-center" role="group"
+                            aria-label="Filtros de Paquetes">
+                            <div class="row w-100 justify-content-center g-2">
+                                <button type="button"
+                                    class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark active mb-2"
+                                    data-filtro-paquete="all">Todo</button>
                                 <?php foreach ($tipoClases as $tipo): ?>
-                                    <?php if ($tipo['categoria'] == 2): ?>
-                                        <button type="button" class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark" data-filtro-paquete="<?= $tipo['id'] ?>">
-                                            <?= htmlspecialchars($tipo['servicio']) ?>
-                                        </button>
-                                    <?php endif; ?>
+                                <?php if ($tipo['categoria'] == 2): ?>
+                                <button type="button" class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark mb-2"
+                                    data-filtro-paquete="<?= $tipo['id'] ?>">
+                                    <?= htmlspecialchars($tipo['servicio']) ?>
+                                </button>
+                                <?php endif; ?>
                                 <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
                     <?php foreach ($paquetes as $paquete): ?>
-                        <div class="col-sm-6 col-md-4 col-lg-3 paquete" data-paquete="<?= $paquete['id_servicio'] ?>">
-                            <div class="card-clases">
-                                <div class="row" style="width: 100%; margin: 0;">
-                                    <img src="./img/<?= htmlspecialchars($paquete['imagen']) ?>" class="p-0 m-0" alt="<?= htmlspecialchars($paquete['nombre']) ?>">
-                                    <div class="col-12 px-0 pt-2 clase-title">
-                                        <h5><?= htmlspecialchars($paquete['nombre']) ?></h5>
-                                    </div>
-                                    <div class="col-12 px-2 py-0 descripcion_clase">
-                                        <p class="clase-txt"><?= htmlspecialchars($paquete['descripcion']) ?></p>
-                                        <p class="clase-txt"><strong>N° de Clases:</strong> <?= htmlspecialchars($paquete['clases']) ?></p>
-                                        <p class="clase-txt"><strong>Vigencia:</strong> <?= htmlspecialchars($paquete['vigencia']) ?></p>
-                                        <p class="clase-txt"><strong>Valor: $</strong> <?= htmlspecialchars($paquete['precio']) ?></p>
-                                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 paquete" data-paquete="<?= $paquete['id_servicio'] ?>">
+                        <div class="card-clases">
+                            <div class="row" style="width: 100%; margin: 0;">
+                                <img src="./img/<?= htmlspecialchars($paquete['imagen']) ?>" class="p-0 m-0"
+                                    alt="<?= htmlspecialchars($paquete['nombre']) ?>">
+                                <div class="col-12 px-0 pt-2 card-title-clase">
+                                    <h5><?= htmlspecialchars($paquete['nombre']) ?></h5>
                                 </div>
-                                <div class="py-2">
-                                    <a href="/servicios/clase/<?= htmlspecialchars($paquete['slug']) ?>" class="btn btn-agendar py-2">Comprar</a>
+                                <div class="col-12 px-2 py-0 descripcion_clase">
+                                    <p class="clase-txt"><?= htmlspecialchars($paquete['descripcion']) ?></p>
+                                    <p class="clase-txt"><strong>N° de Clases:</strong>
+                                        <?= htmlspecialchars($paquete['clases']) ?></p>
+                                    <p class="clase-txt"><strong>Vigencia:</strong>
+                                        <?= htmlspecialchars($paquete['vigencia']) ?></p>
+                                    <p class="clase-txt"><strong>Valor: $</strong>
+                                        <?= number_format((int)$paquete['precio'], 0, ',', '.') ?></p>
                                 </div>
                             </div>
+                            <div class="py-2">
+                                <a href="./servicios/clase/<?= htmlspecialchars($paquete['slug']) ?>"
+                                    class="btn btn-agendar py-2">Comprar</a>
+                            </div>
                         </div>
+                    </div>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -194,7 +162,7 @@ document.querySelectorAll('[data-filtro]').forEach(btn => {
         const categoria = btn.getAttribute('data-filtro');
 
         // Oculta/filtra cards como ya tienes
-        document.querySelectorAll('.producto').forEach(card => {
+        document.querySelectorAll('.clase-item').forEach(card => {
             if (categoria === 'all' || card.getAttribute('data-categoria') === categoria) {
                 card.style.display = 'block';
             } else {
@@ -214,7 +182,7 @@ document.querySelectorAll('[data-filtro]').forEach(btn => {
             }
         }
 
-        document.querySelectorAll('.btn-group .btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('[data-filtro]').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
     });
 });
@@ -225,7 +193,7 @@ function cargarCalendarioServicio(idServicio) {
     }
     document.getElementById('calendar-servicio').innerHTML = '<p>Cargando disponibilidad...</p>';
 
-    fetch('/controllers/CalendarioDisponible.php?id_servicio=' + idServicio)
+    fetch('./controllers/CalendarioDisponible.php?id_servicio=' + idServicio)
         .then(r => r.json())
         .then(data => {
             // <<--- AGREGA ESTE LOG:
@@ -266,7 +234,8 @@ document.querySelectorAll('[data-filtro-paquete]').forEach(btn => {
                 card.style.display = 'none';
             }
         });
-        document.querySelectorAll('.btn-group.btn-paquete .btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.btn-group.btn-paquete .btn').forEach(b => b.classList.remove(
+            'active'));
         btn.classList.add('active');
     });
 });

@@ -6,7 +6,7 @@ $franjas = $franjas ?? [];
 ?>
 
 <h4>Agenda de <?= htmlspecialchars($prof['nombre']) ?></h4>
-<a href="/admin/agenda/<?= $prof['idprof'] ?>/config/create"
+<a href="../../admin/agenda/<?= $prof['idprof'] ?>/config/create"
    class="btn btn-success mb-3">Añadir franja</a>
 
 <table class="table">

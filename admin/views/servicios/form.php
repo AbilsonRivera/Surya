@@ -4,7 +4,7 @@ $edit = $srv !== null;
 
 <h3 class="mb-4"><?= $edit?'Editar':'Nuevo' ?> servicio</h3>
 
-<form action="/admin/servicios/<?= $edit?'update/'.$srv['idser']:'store' ?>"
+<form action=""
       method="post" enctype="multipart/form-data" style="max-width:700px">
 
   <div class="mb-3">
@@ -33,13 +33,13 @@ $edit = $srv !== null;
   <div class="mb-3">
     <label class="form-label">Imagen</label>
     <?php if($edit && $srv['image']): ?>
-      <div class="mb-2"><img src="/img/<?= $srv['image'] ?>" style="max-width:150px"></div>
+      <div class="mb-2"><img src="../../img/<?= $srv['image'] ?>" style="max-width:150px"></div>
     <?php endif; ?>
     <input type="file" name="image" class="form-control" <?= $edit?'':'required' ?>>
   </div>
 
   <button class="btn btn-success"><?= $edit?'Actualizar':'Crear' ?></button>
-  <a href="/admin/servicios" class="btn btn-secondary">Cancelar</a>
+  <a href="../../admin/servicios" class="btn btn-secondary">Cancelar</a>
 </form>
 
 <?php include __DIR__.'/../layout/footer.php'; ?>

@@ -87,7 +87,7 @@ $usuarioLogueado = isset($_SESSION['aid']) && !empty($_SESSION['aid']);
         <i class="fa-solid fa-utensils"></i>
     </a>
 
-    <a href="https://api.whatsapp.com/send?phone=573177183266&text=Hola%2C%20quiero%20más%20información" title="Contáctanos"
+    <a href="https://api.whatsapp.com/send?phone=573150922525&text=Hola%2C%20quiero%20más%20información" title="Contáctanos"
       class="whatsapp-float" target="_blank" rel="noopener noreferrer">
         <i class="fa-brands fa-whatsapp"></i>
     </a>

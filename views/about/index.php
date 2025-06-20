@@ -2,11 +2,11 @@
 
 <div class="banner-pages" style="background: url('./img/banner/pages/portada-somos.jpg') center/cover no-repeat;">
     <div class="container content-pages px-4">
-        <h2 class="hero-title">Somos</h2>
+        <h2 class="hero-title">Somos Surya</h2>
         <p class="pages-text">Así como el sol nutre a la tierra y permite que todo florezca, en Surya creemos que cada
             persona lleva dentro una energía vital capaz de transformar su realidad. SURYA es un espacio que integra el
             desarrollo de la mente, la conexión con los alimentos y la armonía del alma.</p>
-        <h4 class="pages-link">Inicio > <span class="pages-active">SOMOS SURYA</span></h4>
+        <h4 class="pages-link"><a href="./" style="color: inherit; text-decoration: none;">Inicio</a> > <span class="pages-active">SOMOS SURYA</span></h4>
     </div>
 </div>
 
@@ -29,7 +29,7 @@
                 <h5 class="page-somos-subtitulo">Energía vital para tu</h5>
                 <h2 class="page-somos-titulo">Mente, Cuerpo y Alma.</h2>
                 <p class="page-somos-txt">Acompañamos tú Mente desde el desarrollo del ser en el ámbito personal y
-                    corporativo, tú Cuerpo para nutrirte con presencia y equilibrio; y tú Alma a través de la profunda
+                    corporativo; tú Cuerpo para nutrirte con presencia y equilibrio; y tú Alma a través de la profunda
                     conexión con el yoga. Cada espacio está diseñado para invitarte a valorar el presente y resignificar
                     el crecimiento, la alimentación y la calma como actos de bienestar y amor propio. </p>
             </div>
@@ -50,12 +50,11 @@
 
                     <div class="cards-grid">
                         <div class="value-card" data-aos="fade-up" data-delay="100">
-                            <div class="card-inner">
-                                <div class="icon-container amor">
+                            <div class="card-inner">                                <div class="icon-container amor">
                                     <div class="icon-bg"></div>
                                     <img src="img/iconos/amor.png" alt="Icono Amor" class="icon">
                                 </div>
-                                <h3 class="card-title">Amor</h3>
+                                <h3 class="card-title-valor">Amor</h3>
                                 <p class="card-description">Pasión genuina en cada proyecto que emprendemos</p>
                             </div>
                         </div>
@@ -67,17 +66,16 @@
                                     <img src="img/iconos/confianza.png" alt="Icono confianza" class="icon">
 
                                 </div>
-                                <h3 class="card-title">Confianza</h3>
+                                <h3 class="card-title-valor">Confianza</h3>
                                 <p class="card-description">Transparencia y seguridad en cada relación</p>
                             </div>
                         </div>
                         <div class="value-card" data-aos="fade-up" data-delay="300">
-                            <div class="card-inner">
-                                <div class="icon-container servicio">
+                            <div class="card-inner">                                <div class="icon-container servicio">
                                     <div class="icon-bg"></div>
                                     <img src="img/iconos/servicio.png" alt="Icono servicio" class="icon">
                                 </div>
-                                <h3 class="card-title">Servicio</h3>
+                                <h3 class="card-title-valor">Servicio</h3>
                                 <p class="card-description">Excelencia y dedicación en cada atención</p>
                             </div>
                         </div>
@@ -97,7 +95,7 @@
                                     <img src="img/iconos/alegria.png" alt="Icono alegria" class="icon">
 
                                 </div>
-                                <h3 class="card-title">Alegría</h3>
+                                <h3 class="card-title-valor">Alegría</h3>
                                 <p class="card-description">Positividad que contagia e inspira</p>
                             </div>
                         </div>
@@ -108,7 +106,7 @@
                                     <div class="icon-bg"></div>
                                     <img src="img/iconos/unidad.png" alt="Icono unidad" class="icon">
                                 </div>
-                                <h3 class="card-title">Unidad</h3>
+                                <h3 class="card-title-valor">Unidad</h3>
                                 <p class="card-description">Fuerza colectiva que nos hace invencibles</p>
                             </div>
                         </div>
@@ -119,7 +117,7 @@
                                     <div class="icon-bg"></div>
                                     <img src="img/iconos/calidad.png" alt="Icono calidad" class="icon">
                                 </div>
-                                <h3 class="card-title">Calidad</h3>
+                                <h3 class="card-title-valor">Calidad</h3>
                                 <p class="card-description">Excelencia sin compromisos en cada detalle</p>
                             </div>
                         </div>

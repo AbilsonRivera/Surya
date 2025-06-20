@@ -1,3 +1,9 @@
+<?php
+// Calcular la ruta base según la URI actual
+$current_uri = $_SERVER['REQUEST_URI'] ?? '';
+$base_path = (str_contains($current_uri, '/edit') || str_contains($current_uri, '/create')) ? '../../' : '../';
+$url = $url ?? '';
+?>
 <!doctype html>
 <html lang="es">
 
@@ -46,24 +52,24 @@
     <!--  ╭───────  MENÚ LATERAL  ───────╮ -->
     <nav class="sidebar">
         <div class="text-center my-3">
-            <img src="../img/logo/logo.png" style="max-width:140px" alt="logo">
+            <img src="<?= $base_path ?>img/logo/logo.png" style="max-width:140px" alt="logo">
         </div>
-        <a href="../admin" class="<?= $url==='admin'?'active':'' ?>">Dashboard</a>
-        <a href="../admin/productos" class="<?= str_starts_with($url,'admin/productos')?'active':'' ?>">Productos</a>
-        <a href="../admin/agenda/profesionales" class="<?= str_starts_with($url,'admin/agenda/profesionales')?'active':'' ?>">Clases y Paquetes</a>
+        <a href="<?= $base_path ?>admin" class="<?= $url==='admin'?'active':'' ?>">Dashboard</a>
+        <a href="<?= $base_path ?>admin/productos" class="<?= str_starts_with($url,'admin/productos')?'active':'' ?>">Productos</a>
+        <a href="<?= $base_path ?>admin/agenda/profesionales" class="<?= str_starts_with($url,'admin/agenda/profesionales')?'active':'' ?>">Clases y Paquetes</a>
         <!-- Enlaces comentados temporalmente
         <a href="admin/clases" class="<?= str_starts_with($url,'admin/clases')?'active':'' ?>">Clases</a>
         <a href="admin/paquetes" class="<?= str_starts_with($url,'admin/paquetes')?'active':'' ?>">Paquetes</a>
         -->
-        <a href="../admin/blog" class="<?= str_starts_with($url,'admin/blog')?'active':'' ?>">Blog</a>
-        <a href="../admin/galeria" class="<?= str_starts_with($url,'admin/galeria')?'active':'' ?>">Galería</a>
-        <a href="../admin/servicios" class="<?= str_starts_with($url,'admin/servicios')?'active':'' ?>">Servicios</a>
-        <a href="../admin/services" class="<?= str_starts_with($url,'admin/services')?'active':'' ?>">Servicios Inicio</a>
-        <a href="../admin/miembros" class="<?= str_starts_with($url,'admin/miembros')?'active':'' ?>">Miembros</a>
-        <a href="../admin/contacto" class="<?= str_starts_with($url,'admin/contacto')?'active':'' ?>">Mensajes</a>
-        <a href="../admin/agenda" class="<?= str_starts_with($url,'admin/agenda')?'active':'' ?>">Agenda</a>
+        <a href="<?= $base_path ?>admin/blog" class="<?= str_starts_with($url,'admin/blog')?'active':'' ?>">Blog</a>
+        <a href="<?= $base_path ?>admin/galeria" class="<?= str_starts_with($url,'admin/galeria')?'active':'' ?>">Galería</a>
+        <a href="<?= $base_path ?>admin/servicios" class="<?= str_starts_with($url,'admin/servicios')?'active':'' ?>">Servicios</a>
+        <a href="<?= $base_path ?>admin/services" class="<?= str_starts_with($url,'admin/services')?'active':'' ?>">Servicios Inicio</a>
+        <a href="<?= $base_path ?>admin/miembros" class="<?= str_starts_with($url,'admin/miembros')?'active':'' ?>">Miembros</a>
+        <a href="<?= $base_path ?>admin/contacto" class="<?= str_starts_with($url,'admin/contacto')?'active':'' ?>">Mensajes</a>
+        <a href="<?= $base_path ?>admin/agenda" class="<?= str_starts_with($url,'admin/agenda')?'active':'' ?>">Agenda</a>
 
-        <a href="../admin/logout" class="mt-auto text-center"><i class="bi bi-box-arrow-right"></i> Salir</a>
+        <a href="<?= $base_path ?>admin/logout" class="mt-auto text-center"><i class="bi bi-box-arrow-right"></i> Salir</a>
     </nav>
 
     <!--  ╭────── CONTENIDO  ──────╮ -->
