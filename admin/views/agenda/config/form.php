@@ -9,7 +9,7 @@ $durSel = $franja['duracion']  ?? 20;
 <h4 class="mb-3"><?= $edit ? 'Editar' : 'Nueva'; ?> franja · <?= htmlspecialchars($prof['nombre']) ?></h4>
 
 <form method="post"
-      action="/admin/agenda/<?= $prof['idprof'] ?>/config/<?= $edit ? 'update/'.$franja['idconf'] : 'store' ?>"
+      action="<?= $baseUrl ?>admin/agenda/<?= $prof['idprof'] ?>/config/<?= $edit ? 'update/'.$franja['idconf'] : 'store' ?>"
       style="max-width:500px">
 
 
@@ -54,9 +54,8 @@ $durSel = $franja['duracion']  ?? 20;
       <?php endforeach; ?>
     </select>
   </div>
-
   <button class="btn btn-success">Guardar</button>
-  <a href="/admin/agenda/<?= $prof['idprof'] ?>/config" class="btn btn-secondary">Cancelar</a>
+  <a href="<?= $baseUrl ?>admin/agenda/<?= $prof['idprof'] ?>/config" class="btn btn-secondary">Cancelar</a>
 </form>
 
 <?php include __DIR__.'/../../layout/footer.php'; ?>

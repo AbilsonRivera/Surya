@@ -20,12 +20,12 @@
 <div class="my-0 d-flex">
   <nav class="sidebar">
     <div class="text-center my-3">
-      <img src="/img/logo/logo.png" style="max-width:140px" alt="logo">
+      <img src="<?= $baseUrl ?>img/logo/logo.png" style="max-width:140px" alt="logo">
     </div>
     <a href="#mi-perfil" class="nav-link link-nav active">Mi Perfil</a>
     <a href="#mi-clase" class="nav-link link-nav">Mis Clases</a>
     <a href="#mi-paquete" class="nav-link link-nav">Mis Paquetes</a>
-    <a href="/admin/logout" class="mt-auto text-center"><i class="bi bi-box-arrow-right"></i>Cerrar Sesión</a>
+    <a href="<?= $baseUrl ?>admin/logout" class="mt-auto text-center"><i class="bi bi-box-arrow-right"></i>Cerrar Sesión</a>
   </nav>
   <main>
     
@@ -69,7 +69,7 @@
 <!-- Modal Actualizar datos -->
 <div class="modal fade" id="modalActualizarPerfil" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <form class="modal-content" method="POST" action="/mi-perfil/actualizar">
+    <form class="modal-content" method="POST" action="<?= $baseUrl ?>mi-perfil/actualizar">
       <div class="modal-header">
         <h5 class="modal-title" id="modalLabel">Actualizar Perfil</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>

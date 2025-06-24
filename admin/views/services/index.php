@@ -24,7 +24,7 @@
                 <td><?= htmlspecialchars(substr($s['description'], 0, 60)) ?>...</td>
                 <td><i class="<?= htmlspecialchars($s['icons']) ?>"></i></td>                <td>
                     <?php if ($s['image_path']): ?>
-                        <img src="../img/<?= htmlspecialchars($s['image_path']) ?>" style="width:60px;">
+                        <img src="<?= $baseUrl ?>img/<?= htmlspecialchars($s['image_path']) ?>" style="width:60px;">
                     <?php endif; ?>
                 </td>
                 <td><?= htmlspecialchars($s['btn_text']) ?></td>

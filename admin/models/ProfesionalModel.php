@@ -122,8 +122,32 @@ class ProfesionalModel
         $ext = strtolower(pathinfo($f['name'], PATHINFO_EXTENSION));
         if (!in_array($ext, ['jpg','jpeg','png','webp'])) return null;
 
-        $nombre = 'prof_' . time() . '.' . $ext;
-        move_uploaded_file($f['tmp_name'], __DIR__.'/../../img/'.$nombre);
+        $nombre = 'prof_' . time() . '.' . $ext;        move_uploaded_file($f['tmp_name'], __DIR__.'/../../img/'.$nombre);
         return $nombre;
+    }
+
+    /* =================  ELIMINAR  ==================== */
+    public static function borrar(int $id): void
+    {
+        $pdo = Database::connect();
+        
+        // Obtener datos del profesional antes de eliminar (para borrar la foto)
+        $prof = self::find($id);
+        
+        // Marcar como inactivo en lugar de eliminar físicamente
+        $sql = "UPDATE profesionales SET is_activo = 0 WHERE idprof = ?";
+        $pdo->prepare($sql)->execute([$id]);
+        
+        // Opcional: también eliminar registros relacionados en otras tablas
+        // PrecioModel::delete($id);
+        // VigenciaModel::delete($id);
+        
+        // Opcional: eliminar archivo de foto física
+        if ($prof && !empty($prof['foto'])) {
+            $fotoPath = __DIR__ . '/../../img/' . $prof['foto'];
+            if (file_exists($fotoPath)) {
+                unlink($fotoPath);
+            }
+        }
     }
 }

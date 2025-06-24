@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . '/../models/ProfesionalModel.php';
+require_once __DIR__ . '/../models/EspecialidadModel.php';
+require_once __DIR__ . '/../models/TipoClaseModel.php';
+
 class ProfesionalController {
 
     public function __construct() { AdminAuth::check(); }
@@ -24,26 +28,52 @@ public function edit($idprof)
     $especialidades = EspecialidadModel::all();
     $tipos          = TipoClaseModel::all();    // ← NUEVO
     require 'admin/views/agenda/profesionales/form.php';
-}
-
-
-    /* ------------- GUARDAR ------------ */
+}    /* ------------- GUARDAR ------------ */
     public function store()
     {
-        ProfesionalModel::guardar($_POST, $_FILES['foto']);
-        header('Location: /admin/agenda/profesionales');
+        try {
+            ProfesionalModel::guardar($_POST, $_FILES['foto'] ?? []);
+            $baseUrl = $this->getBaseUrl();
+            header('Location: ' . $baseUrl . 'admin/agenda/profesionales');
+            exit;
+        } catch (Exception $e) {
+            // En producción, logueamos el error pero mostramos mensaje genérico
+            error_log("Error in ProfesionalController::store(): " . $e->getMessage());
+            
+            // Redirigir con mensaje de error
+            $baseUrl = $this->getBaseUrl();
+            header('Location: ' . $baseUrl . 'admin/agenda/profesionales?error=1');
+            exit;
+        }
     }
 
     public function update($idprof)
     {
         ProfesionalModel::actualizar($idprof, $_POST, $_FILES['foto']);
-        header('Location: /admin/agenda/profesionales');
+        $baseUrl = $this->getBaseUrl();
+        header('Location: ' . $baseUrl . 'admin/agenda/profesionales');
     }
 
     /* ------------- BORRAR ------------- */
     public function delete($idprof)
     {
         ProfesionalModel::borrar($idprof);
-        header('Location: /admin/agenda/profesionales');
+        $baseUrl = $this->getBaseUrl();
+        header('Location: ' . $baseUrl . 'admin/agenda/profesionales');
+    }
+
+    /* ------------- HELPER PARA BASE URL ------------- */
+    private function getBaseUrl()
+    {
+        $httpHost = $_SERVER['HTTP_HOST'] ?? '';
+        $isLocalhost = in_array($httpHost, ['localhost', '127.0.0.1']) || strpos($httpHost, 'localhost:') === 0;
+        
+        if ($isLocalhost) {
+            return '/surya2/';
+        } else {
+            $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+            $projectPath = dirname($scriptName);
+            return ($projectPath === '/' || $projectPath === '\\') ? '/' : rtrim($projectPath, '/\\') . '/';
+        }
     }
 }

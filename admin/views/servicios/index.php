@@ -4,7 +4,7 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
   <h3 class="mb-0">Servicios</h3>
-  <a href="../admin/servicios/create" class="btn btn-success">
+  <a href="<?= $baseUrl ?>admin/servicios/create" class="btn btn-success">
     <i class="bi bi-plus-lg"></i> Nuevo servicio
   </a>
 </div>
@@ -20,14 +20,14 @@
     <?php foreach($servicios as $s): ?>
       <tr>
         <td><?= $s['idser'] ?></td>
-        <td><img src="../img/<?= $s['image'] ?>" style="width:70px"></td>
+        <td><img src="<?= $baseUrl ?>img/<?= $s['image'] ?>" style="width:70px"></td>
         <td><?= htmlspecialchars($s['titulo']) ?></td>
         <td><?= $s['slug'] ?></td>
         <td><?= htmlspecialchars($s['subtitulo']) ?></td>
         <td>
-          <a href="../admin/servicios/edit?id=<?= $s['idser'] ?>" class="btn btn-sm btn-primary">
+          <a href="<?= $baseUrl ?>admin/servicios/edit?id=<?= $s['idser'] ?>" class="btn btn-sm btn-primary">
             <i class="bi bi-pencil"></i></a>
-          <a href="../admin/servicios/delete?id=<?= $s['idser'] ?>" class="btn btn-sm btn-danger"
+          <a href="<?= $baseUrl ?>admin/servicios/delete?id=<?= $s['idser'] ?>" class="btn btn-sm btn-danger"
              onclick="return confirm('¿Eliminar este servicio?')">
             <i class="bi bi-trash"></i></a>
         </td>

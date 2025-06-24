@@ -211,7 +211,7 @@
                 foreach ($chunks as $index => $slide): 
                 ?>
                     <div class="carousel-item <?= $index === 0 ? 'active' : '' ?> container-sm p-3">
-                        <div class="row">
+                        <div class="row justify-content-center<?= count($slide) < 3 ? ' align-items-center' : '' ?>">
                             <?php foreach ($slide as $testimonial): ?>
                                 <div class="col-sm-12 col-md-4">
                                     <div class="row p-3 mx-auto">
@@ -245,11 +245,11 @@
         <div id="OpinionsCarouselMovil" class="carousel slide carousel-container d-flex d-md-none" data-bs-ride="carousel">
             <div class="carousel-inner container-sm p-3">
                 <?php 
-                $chunks = array_chunk($testimonials, 1); // Agrupar en slides de 3 testimonios
+                $chunks = array_chunk($testimonials, 1); // Agrupar en slides de 1 testimonio para móvil
                 foreach ($chunks as $index => $slide): 
                 ?>
                     <div class="carousel-item <?= $index === 0 ? 'active' : '' ?> container-sm p-3">
-                        <div class="row">
+                        <div class="row justify-content-center<?= count($slide) < 1 ? ' align-items-center' : '' ?>">
                             <?php foreach ($slide as $testimonial): ?>
                                 <div class="col-sm-12 col-md-4">
                                     <div class="row p-3 mx-auto">

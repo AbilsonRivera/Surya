@@ -1,7 +1,21 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// Configuración de errores según el entorno
+$isProduction = !in_array($_SERVER['HTTP_HOST'] ?? '', ['localhost', '127.0.0.1']) 
+               && strpos($_SERVER['HTTP_HOST'] ?? '', 'localhost:') !== 0;
+
+if ($isProduction) {
+    // Configuración para producción: no mostrar errores al usuario
+    ini_set('display_errors', 0);
+    ini_set('display_startup_errors', 0);
+    error_reporting(E_ALL);
+    ini_set('log_errors', 1);
+    ini_set('error_log', __DIR__ . '/logs/php_errors.log');
+} else {
+    // Configuración para desarrollo: mostrar todos los errores
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+}
 
 /* autoload */
 spl_autoload_register(function($c){

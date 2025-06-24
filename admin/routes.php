@@ -1,5 +1,16 @@
 <?php
 require_once __DIR__ . '/controllers/AuthController.php';
+require_once __DIR__ . '/controllers/ProfesionalController.php';
+require_once __DIR__ . '/controllers/ProductosController.php';
+require_once __DIR__ . '/controllers/BlogController.php';
+require_once __DIR__ . '/controllers/GaleriaController.php';
+require_once __DIR__ . '/controllers/ServicioController.php';
+require_once __DIR__ . '/controllers/ServiceController.php';
+require_once __DIR__ . '/controllers/MensajeController.php';
+require_once __DIR__ . '/controllers/MiembrosController.php';
+require_once __DIR__ . '/controllers/SubservicioController.php';
+require_once __DIR__ . '/controllers/CitaController.php';
+require_once __DIR__ . '/controllers/AgendaController.php';
 
 switch ($url) {
 

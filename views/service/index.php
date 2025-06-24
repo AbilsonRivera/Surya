@@ -39,9 +39,11 @@ $heroImg = !empty($servicio['image'])
                         <p style="text-align: justify;"><?= nl2br(htmlspecialchars($item['descripcion'])) ?></p>
                         <?php if ($i === count($detalles) - 1): ?>
                             <?php if ($servicio['slug'] == "alma"): ?>
-                                <a href="./servicios" class="btn btn-agendar">Agendar Cita</a>
-                            <?php else : ?>
-                                <a href="./servicios" class="btn btn-agendar">Agendar Cita</a>
+                                <!-- Botón para sección ALMA - hace scroll a nuestras clases -->
+                                <a href="#nuestras-clases" class="btn btn-agendar" onclick="scrollToSection('#nuestras-clases')">Agendar Cita</a>
+                            <?php elseif ($servicio['slug'] == "mente"): ?>
+                                <!-- Botón para sección MENTE - lleva a la página de alma -->
+                                <a href="<?= $baseUrl ?>alma" class="btn btn-agendar">Agendar Cita</a>
                             <?php endif; ?>
                         <?php endif; ?>
                     </div>
@@ -418,5 +420,16 @@ require_once 'views/galeria/index.php';
         }
     });
     <?php endif; ?>
+
+    // Función para hacer scroll suave a una sección
+    function scrollToSection(sectionId) {
+        const element = document.querySelector(sectionId);
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
 
 </script>

@@ -26,7 +26,7 @@
                 </td>
                 <td>
                     <?php if ($persona['imagen']): ?>
-                        <img src="../img/miembros/<?= htmlspecialchars($persona['imagen']) ?>" style="width:60px;">
+                        <img src="<?= $baseUrl ?>img/miembros/<?= htmlspecialchars($persona['imagen']) ?>" style="width:60px;">
                     <?php endif; ?>
                 </td>
                 <td>

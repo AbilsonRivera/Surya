@@ -6,7 +6,7 @@ $franjas = $franjas ?? [];
 ?>
 
 <h4>Agenda de <?= htmlspecialchars($prof['nombre']) ?></h4>
-<a href="../../admin/agenda/<?= $prof['idprof'] ?>/config/create"
+<a href="<?= $baseUrl ?>admin/agenda/<?= $prof['idprof'] ?>/config/create"
    class="btn btn-success mb-3">Añadir franja</a>
 
 <table class="table">
@@ -22,10 +22,9 @@ $franjas = $franjas ?? [];
   <tr>
     <td><?= ['Lu','Ma','Mi','Ju','Vi','Sa','Do'][$f['dia_sem']-1] ?></td>
     <td><?= substr($f['hora_ini'],0,5) ?></td>
-    <td><?= substr($f['hora_fin'],0,5) ?></td>
-    <td><?= $f['duracion'] ?> min</td>     <!-- 👈 NUEVO -->
+    <td><?= substr($f['hora_fin'],0,5) ?></td>    <td><?= $f['duracion'] ?> min</td>     <!-- 👈 NUEVO -->
     <td>
-      <a href="/admin/agenda/<?= $prof['idprof'] ?>/config/edit/<?= $f['idconf'] ?>"
+      <a href="<?= $baseUrl ?>admin/agenda/<?= $prof['idprof'] ?>/config/edit/<?= $f['idconf'] ?>"
          class="btn btn-sm btn-primary">Editar</a>
     </td>
   </tr>

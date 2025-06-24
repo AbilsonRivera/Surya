@@ -9,7 +9,7 @@ $jsonFechas = json_encode($fechasDisponibles); // ["2025-05-24",…]
 <script>
 console.log('fechasDisponibles que llega del PHP:', <?= $jsonFechas ?>);
 </script>
-<div class="banner-pages" style="background:url('/img/banner/pages/portada-somos.jpg') center/cover no-repeat;">
+<div class="banner-pages" style="background:url('<?= $baseUrl ?>img/banner/pages/portada-somos.jpg') center/cover no-repeat;">
   <div class="container content-pages px-4">
     <h2 class="hero-title">Agendamiento</h2>
     <p class="pages-text">Reserva ahora tu sesión.</p>
@@ -25,7 +25,7 @@ console.log('fechasDisponibles que llega del PHP:', <?= $jsonFechas ?>);
 
           <!-- Imagen / lateral -->
           <div class="col-sm-12 col-md-6">
-            <img src="/img/<?= htmlspecialchars($articulo['foto'] ?? '') ?>"
+            <img src="<?= $baseUrl ?>img/<?= htmlspecialchars($articulo['foto'] ?? '') ?>"
                  alt="<?= htmlspecialchars($articulo['nombre'] ?? '') ?>"
                  class="img-fluid rounded-3">
           </div>
@@ -221,7 +221,7 @@ function cargarHorasDisponibles(fecha) {
   const msg = document.getElementById('msgHoras');
   contHoras.innerHTML = '';
   msg.textContent = 'Cargando horas... ⏳';
-  fetch(`/controllers/HoraDisponible.php?fecha=${fecha}&clase_id=${claseID}`)
+  fetch(`<?= $baseUrl ?>controllers/HoraDisponible.php?fecha=${fecha}&clase_id=${claseID}`)
     .then(r => r.json())
     .then(horas => {
       console.log("Respuesta del backend (horas):", horas); // 👈👈
@@ -315,7 +315,7 @@ if (document.getElementById('formLogin')) {
   document.getElementById('formLogin').addEventListener('submit', async function(e) {
     e.preventDefault();
     const datos = Object.fromEntries(new FormData(this).entries());
-    const resp = await fetch('/admin/ajax_login', {
+    const resp = await fetch('<?= $baseUrl ?>admin/ajax_login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams(datos)
@@ -335,7 +335,7 @@ if (document.getElementById('formRegistro')) {
   document.getElementById('formRegistro').addEventListener('submit', async function(e) {
     e.preventDefault();
     const datos = Object.fromEntries(new FormData(this).entries());
-    const resp = await fetch('/admin/ajax_registro', {
+    const resp = await fetch('<?= $baseUrl ?>admin/ajax_registro', {
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: new URLSearchParams(datos)
@@ -355,7 +355,7 @@ if (document.getElementById('formCompletarReserva')) {
     .addEventListener('submit', async e => {
       e.preventDefault();
       const datos = Object.fromEntries(new FormData(e.target).entries());
-      const resp = await fetch('/controllers/GuardarCitaController.php', {
+      const resp = await fetch('<?= $baseUrl ?>controllers/GuardarCitaController.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: new URLSearchParams(datos)

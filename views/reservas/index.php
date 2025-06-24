@@ -16,7 +16,7 @@
                                 // Orden personalizado de los filtros
                                 $ordenFiltros = [
                                     'Calendario', 
-                                    'Yoga y otros', 
+                                    'Yoga y Otros', 
                                     'Eventos y talleres', 
                                     'Masaje & icebath'
                                 ];
@@ -170,8 +170,9 @@ document.querySelectorAll('[data-filtro]').forEach(btn => {
             }
         });
 
-        // Mostrar calendario solo si no es "all"
+        // Mostrar calendario solo si es "Calendario" (ID = 1)
         const calendario = document.getElementById('zonaCalendario');
+        
         if (categoria === '1') {
             calendario.style.display = 'block';
             cargarCalendarioServicio(categoria);

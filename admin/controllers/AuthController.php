@@ -14,14 +14,19 @@ class AuthController {
         $ok = AdminAuth::attempt($_POST['email'] ?? '', $_POST['pass'] ?? '');
 
         if ($ok) {
+            // Calcular la base URL
+            $httpHost = $_SERVER['HTTP_HOST'] ?? '';
+            $isLocalhost = in_array($httpHost, ['localhost', '127.0.0.1']) || strpos($httpHost, 'localhost:') === 0;
+            $baseUrl = $isLocalhost ? '/surya2/' : '/';
+            
             // Obtenemos el rol desde la sesión
             $rol = $_SESSION['arol'] ?? null;
 
             // Redirección según el rol
             if ($rol == 1) {
-                header('Location: ../admin');
+                header('Location: ' . $baseUrl . 'admin');
             } else {
-                header('Location: ../mi-perfil');
+                header('Location: ' . $baseUrl . 'mi-perfil');
             }
             exit;
         } else {

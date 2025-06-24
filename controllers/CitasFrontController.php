@@ -6,7 +6,23 @@ class CitasFrontController
     public function index() {
         session_start();
         if (!isset($_SESSION['aid'])) {
-            header('Location: /admin');
+            // Calcular la base URL para la redirección
+            $httpHost = $_SERVER['HTTP_HOST'] ?? '';
+            $isLocalhost = in_array($httpHost, ['localhost', '127.0.0.1']) || strpos($httpHost, 'localhost:') === 0;
+            $baseUrl = $isLocalhost ? '/surya2/' : '/';
+            
+            header('Location: ' . $baseUrl . 'admin');
+            exit;
+        }
+
+        // Verificar si es administrador (rol = 1)
+        if (isset($_SESSION['arol']) && $_SESSION['arol'] == 1) {
+            // Si es admin, redirigir al panel administrativo
+            $httpHost = $_SERVER['HTTP_HOST'] ?? '';
+            $isLocalhost = in_array($httpHost, ['localhost', '127.0.0.1']) || strpos($httpHost, 'localhost:') === 0;
+            $baseUrl = $isLocalhost ? '/surya2/' : '/';
+            
+            header('Location: ' . $baseUrl . 'admin');
             exit;
         }
 
@@ -18,8 +34,8 @@ class CitasFrontController
             // Si no existe, preparamos los valores de sesión para el formulario
             $paciente = [
                 'idpaciente' => $id,
-                'correo'     => $_SESSION['amail'],
-                'nombre'     => $_SESSION['aname'],
+                'correo'     => $_SESSION['amail'] ?? '',
+                'nombre'     => $_SESSION['aname'] ?? '',
                 'documento'  => '',
                 'telefono'   => ''
             ];

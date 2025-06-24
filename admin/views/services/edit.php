@@ -12,7 +12,7 @@
         </div>
         <div class="mb-3">            <label>Imagen actuals:</label><br>
             <?php if ($service['image_path']): ?>
-                <img src="../img/<?= htmlspecialchars($service['image_path']) ?>" style="width:80px;">
+                <img src="<?= $baseUrl ?>img/<?= htmlspecialchars($service['image_path']) ?>" style="width:80px;">
             <?php endif; ?>
             <input type="file" name="image_path" class="form-control mt-2">
         </div>
