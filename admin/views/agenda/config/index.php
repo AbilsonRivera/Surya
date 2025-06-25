@@ -26,15 +26,24 @@ $franjas = $franjas ?? [];
     <td>
       <a href="<?= $baseUrl ?>admin/agenda/<?= $prof['idprof'] ?>/config/edit/<?= $f['idconf'] ?>"
          class="btn btn-sm btn-primary">Editar</a>
+      <button class="btn btn-sm btn-danger" onclick="eliminarFranja(<?= $prof['idprof'] ?>, <?= $f['idconf'] ?>)">Eliminar</button>
     </td>
   </tr>
 <?php endforeach; ?>
 
 
     <?php if (empty($franjas)): ?>
-      <tr><td colspan="4" class="text-center text-muted">Sin franjas definidas</td></tr>
+      <tr><td colspan="5" class="text-center text-muted">Sin franjas definidas</td></tr>
     <?php endif; ?>
   </tbody>
 </table>
+
+<script>
+function eliminarFranja(idprof, idconf) {
+  if (confirm('¿Seguro que deseas eliminar esta franja horaria?')) {
+    window.location.href = '<?= $baseUrl ?>admin/agenda/' + idprof + '/config/delete/' + idconf;
+  }
+}
+</script>
 
 <?php include __DIR__.'/../../layout/footer.php'; ?>

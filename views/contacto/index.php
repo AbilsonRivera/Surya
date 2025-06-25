@@ -45,11 +45,9 @@
                     <div class="col-12 mb-4 d-flex align-items-center">
                         <img class="me-3" src="img/iconos/icon-phone.png" alt="Icono"
                             style="width: 50px; height: 50px;">
-                        <div class="contacto-info-container" style="cursor:pointer;"
+                        <div class="contacto-info-container contacto-info-container-numero" style="cursor:pointer;"
                             onclick="window.open('https://wa.me/573150922525','_blank')">
-                            <h5 class="contacto-info-item"
-                                style="transition: color 0.3s ease; color: white;"
-                                onmouseover="this.style.color='#25d366'" onmouseout="this.style.color='white'">
+                            <h5 class="contacto-info-item">
                                 3150922525
                             </h5>
                         </div>

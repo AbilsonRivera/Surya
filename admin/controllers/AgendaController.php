@@ -54,6 +54,18 @@ class AgendaController {
         }
     }
 
+    public function delete($idprof, $idconf)
+    {
+        try {
+            AgendaModel::borrar($idconf);
+            $baseUrl = $this->getBaseUrl();
+            header("Location: " . $baseUrl . "admin/agenda/$idprof/config");
+            exit;
+        } catch (Exception $e) {
+            exit('⚠️ Error al eliminar franja: ' . $e->getMessage());
+        }
+    }
+
     private function getBaseUrl()
     {
         $httpHost = $_SERVER['HTTP_HOST'] ?? '';

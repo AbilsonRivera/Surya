@@ -80,6 +80,7 @@ p, .description,
     flex-grow: 1;
 }
 
+
 .contacto-info-item {
     font-family: 'Century Gothic Italic', 'Century Gothic', Arial, sans-serif !important;
     font-style: italic;
@@ -848,10 +849,6 @@ p, .description,
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
-.btn.btn-custom:hover {
-  background-color: #c3925b;
-  color: white;
 }
 /* Textos de la sección Info en el Formulario - Responsivos */
 .form_tiltulo {
@@ -2113,4 +2110,12 @@ p, .description,
   .citas-sidebar .text-center.my-3 img {
     max-width: 120px;
   }
+}
+
+/* Efecto solo para el contenedor del número de teléfono */
+.contacto-info-container-numero {
+  transition: transform 0.25s cubic-bezier(.4,2,.6,1);
+}
+.contacto-info-container-numero:hover {
+  transform: scale(1.12);
 }

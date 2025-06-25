@@ -125,7 +125,7 @@
                 </div>
             </section>
 
-            <div class="col-12 text-center my-4">
+            <div class="col-12 text-center my-1">
                 <h2 class="page-somos-titulo">SOMOS SURYA</h2>
             </div>
             <div class="col-12 text-center my-4">

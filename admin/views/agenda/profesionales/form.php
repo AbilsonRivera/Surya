@@ -388,4 +388,14 @@ document.getElementById('inputMaterialAdjunto').addEventListener('change', funct
         });
     });
 });
+
+// Hacer funcional el botón 'Quitar' para los links de video ya cargados
+window.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.quitarVideo').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const div = this.closest('.input-group');
+            if (div) div.remove();
+        });
+    });
+});
 </script>

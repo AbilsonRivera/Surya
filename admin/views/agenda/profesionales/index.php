@@ -1,5 +1,13 @@
 <?php include __DIR__.'/../../layout/header.php'; ?>
 
+<?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+if (!empty($_SESSION['error_profesional'])) {
+    echo '<div class="alert alert-danger">' . htmlspecialchars($_SESSION['error_profesional']) . '</div>';
+    unset($_SESSION['error_profesional']);
+}
+?>
+
 <h3>Profesionales</h3>
 <a href="<?= $baseUrl ?>admin/agenda/profesionales/create" class="btn btn-success mb-3">Nuevo</a>
 

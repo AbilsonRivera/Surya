@@ -193,14 +193,19 @@ class ProfesionalModel
     }
 
     /* =================  ELIMINAR  ==================== */
-    public static function borrar(int $id): void
-    {
+    public static function borrar(int $id) {
         $pdo = Database::connect();
-        // Obtener datos del profesional antes de eliminar (para borrar la foto y materiales)
         $prof = self::find($id);
-        // Eliminar registro de la base de datos
-        $sql = "DELETE FROM profesionales WHERE idprof = ?";
-        $pdo->prepare($sql)->execute([$id]);
+        try {
+            $sql = "DELETE FROM profesionales WHERE idprof = ?";
+            $pdo->prepare($sql)->execute([$id]);
+        } catch (PDOException $e) {
+            if ($e->getCode() == 23000) {
+                return "No se puede eliminar el profesional porque tiene registros asociados.";
+            } else {
+                return "Error al eliminar: " . $e->getMessage();
+            }
+        }
         // Eliminar archivo de foto física
         if ($prof && !empty($prof['foto'])) {
             $fotoPath = __DIR__ . '/../../img/' . $prof['foto'];
@@ -220,5 +225,6 @@ class ProfesionalModel
                 }
             }
         }
+        return true;
     }
 }

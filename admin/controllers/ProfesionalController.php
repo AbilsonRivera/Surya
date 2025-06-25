@@ -57,9 +57,18 @@ public function edit($idprof)
     /* ------------- BORRAR ------------- */
     public function delete($idprof)
     {
-        ProfesionalModel::borrar($idprof);
+        $resultado = ProfesionalModel::borrar($idprof);
         $baseUrl = $this->getBaseUrl();
-        header('Location: ' . $baseUrl . 'admin/agenda/profesionales');
+        if ($resultado === true) {
+            header('Location: ' . $baseUrl . 'admin/agenda/profesionales');
+            exit;
+        } else {
+            // Guardar el mensaje de error en sesión y redirigir
+            session_start();
+            $_SESSION['error_profesional'] = $resultado;
+            header('Location: ' . $baseUrl . 'admin/agenda/profesionales');
+            exit;
+        }
     }
 
     /* ------------- HELPER PARA BASE URL ------------- */
