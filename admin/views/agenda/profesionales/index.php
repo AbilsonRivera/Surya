@@ -14,6 +14,7 @@
         <th>Email</th>
         <th>Teléfono</th>
         <th>Descripción</th>
+        <th>Página destino</th>
         <th style="width:130px">Acciones</th>
       </tr>
     </thead>
@@ -36,7 +37,9 @@
         <td><?= htmlspecialchars($p['especialidad'] ?? '—') ?></td>
         <td><?= htmlspecialchars($p['email']        ?? '—') ?></td>
         <td><?= htmlspecialchars($p['telefono']     ?? '—') ?></td>
-        <td><?= htmlspecialchars($p['descripcion']) ?></td>        <!-- Botones -->
+        <td><?= htmlspecialchars($p['descripcion']) ?></td>
+        <td><?= htmlspecialchars($p['pagina_destino'] ?? '—') ?></td>
+        <!-- Botones -->
         <td>
           <a href="<?= $baseUrl ?>admin/agenda/profesionales/edit/<?= $p['idprof'] ?>"
              class="btn btn-sm btn-primary mb-1">Editar</a>
@@ -47,7 +50,7 @@
     <?php endforeach; ?>
 
     <?php if (empty($profs)): ?>
-      <tr><td colspan="8" class="text-center text-muted">No hay profesionales</td></tr>
+      <tr><td colspan="9" class="text-center text-muted">No hay profesionales</td></tr>
     <?php endif; ?>
 
     </tbody>

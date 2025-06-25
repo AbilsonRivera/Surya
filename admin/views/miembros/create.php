@@ -13,7 +13,7 @@
             <label>Tipo</label>
             <select name="tipo" class="form-control" required>
                 <option value="">Seleccionar tipo</option>
-                <option value="administrador">Administrador/a</option>
+                <option value="administrador">Fundador/a</option>
                 <option value="profesor">Profesor/a</option>
             </select>
         </div>

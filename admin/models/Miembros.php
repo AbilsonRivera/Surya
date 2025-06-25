@@ -22,7 +22,7 @@ class Miembros
         }
         
         // Validar que el tipo sea válido
-        if (!in_array($data['tipo'], ['administrador', 'profesor'])) {
+        if (!in_array($data['tipo'], ['fundador', 'profesor'])) {
             return false;
         }
 
@@ -42,7 +42,7 @@ class Miembros
         }
         
         // Validar que el tipo sea válido
-        if (!in_array($data['tipo'], ['administrador', 'profesor'])) {
+        if (!in_array($data['tipo'], ['fundador', 'profesor'])) {
             return false;
         }
 
@@ -72,9 +72,9 @@ class Miembros
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getAdministradores()
+    public static function getFundadores()
     {
-        return self::getByTipo('administrador');
+        return self::getByTipo('fundador');
     }
 
     public static function getProfesores()

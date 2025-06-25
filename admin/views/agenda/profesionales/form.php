@@ -88,6 +88,16 @@
         <input type="file" name="foto" class="form-control" <?= isset($prof)?'':'required'; ?>>
     </div>
 
+    <!-- Página destino (mente, alma, ambos) -->
+    <div class="mb-3">
+        <label class="form-label">¿Dónde mostrar el paquete?</label>
+        <select name="pagina_destino" class="form-select" required>
+            <option value="ambos" <?= (isset($prof) && ($prof['pagina_destino'] ?? '') == 'ambos') ? 'selected' : '' ?>>Ambos</option>
+            <option value="mente" <?= (isset($prof) && ($prof['pagina_destino'] ?? '') == 'mente') ? 'selected' : '' ?>>Mente</option>
+            <option value="alma" <?= (isset($prof) && ($prof['pagina_destino'] ?? '') == 'alma') ? 'selected' : '' ?>>Alma</option>
+        </select>
+    </div>
+
     <!-- ocultos precio / descuento -->
     <input type="hidden" name="precio" id="precioHidden" value="<?= $precio['precio'] ?? 0 ?>">
     <input type="hidden" name="descuento" id="descuentoHidden" value="<?= $precio['descuento'] ?? 0 ?>">    <!-- ocultos vigencia paquete -->

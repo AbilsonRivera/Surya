@@ -129,12 +129,12 @@
                 <h2 class="page-somos-titulo">SOMOS SURYA</h2>
             </div>
             <div class="col-12 text-center my-4">
-                <h5 class="page-somos-subtitulo">Reconocemos la importancia de las habilidades blandas como la energía
-                    que potencializa el éxito tanto a nivel individual como organizacional.</h5>
+                <p class="page-somos-subtitulo">Reconocemos la importancia de las habilidades blandas como la energía
+                    que potencializa el éxito tanto a nivel individual como organizacional.</p>
             </div>
             <div class="col-12">
                 <div class="row justify-content-center">
-                    <?php foreach ($administradores as $persona): ?>
+                    <?php foreach ($fundadores as $persona): ?>
                     <div class="col-sm-6 col-lg-3 personas-surya text-center">
                         <img class="foto-persona" src="./img/miembros/<?= htmlspecialchars($persona['imagen']) ?>"
                             alt="<?= htmlspecialchars($persona['nombre']) ?>">

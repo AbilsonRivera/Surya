@@ -74,7 +74,7 @@ p, .description,
 
 /* Contenedores de información de contacto */
 .contacto-info-container {
-    background-color: #d59a35;
+    background-color: #c5993f;
     border-radius: 50px;
     padding: 1rem;
     flex-grow: 1;
@@ -366,9 +366,11 @@ p, .description,
   }
   
   .Surya-logo {
-    width: 150px !important;
-    margin-top: 15px !important;
-    padding-left: 0 !important;
+    display: block;
+    margin: 10px auto 0 auto;
+    width: 100px;
+    height: auto;
+    max-width: 100%;
   }
 }
 
@@ -384,9 +386,8 @@ p, .description,
   }
   
   .Surya-logo {
-    width: 120px !important;
-    margin-top: 10px !important;
-    padding-left: 0 !important;
+    width: 80px;
+    margin: 10px auto 0 auto;
   }
 }
 
@@ -396,7 +397,7 @@ p, .description,
   }
   
   .Surya-logo {
-    width: 100px !important;
+    width: 140px ;
   }
 }
 
@@ -1046,7 +1047,8 @@ p, .description,
     font-size: clamp(24px, 4vw, 45px);
 }
 .page-somos-subtitulo {
-    font-family: 'Century Gothic', sans-serif;
+    font-family: 'Century Gothic Italic', sans-serif;
+    font-size: 20px;
     color: var(--color-text);
 }
 .page-somos-txt {
@@ -1090,19 +1092,20 @@ p, .description,
 }
 
 .foto-persona {
-    width: 100%;
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    margin: 0 auto 10px auto;
+    background: #f5f5f5;
 }
 
-.nombre-persona {
-    font-family: 'Century Gothic', sans-serif;
-    color: black;
-    font-weight: bold;
-    text-align: center;
-}
-
-.btn-group .btn.active {
-  background-color: #c4922d;
-  color: white;
+.personas-surya {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
 .card-producto {
@@ -1832,14 +1835,30 @@ p, .description,
 
 @media (max-width: 576px) {
     .btn-container-imagen {
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
+        position: static;
+        transform: none;
+        margin-bottom: 40px;
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
     }
-    
-    .btn-imagen-transformacion {
-        padding: 5px 10px;
-        font-size: 0.7rem;
+    .imagen-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .caja-boton-texto {
+        margin-bottom: 10px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    .img-transformacion {
+        order: 2;
+        width: 100%;
+        max-width: 100%;
     }
 }
 

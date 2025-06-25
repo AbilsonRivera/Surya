@@ -4,7 +4,7 @@ $edit = $foto !== null;
 
 <h3 class="mb-4"><?= $edit?'Editar':'Nueva' ?> imagen</h3>
 
-<form action="../admin/galeria/<?= $edit?'update/'.$foto['idimg']:'store' ?>"
+<form action="<?= $baseUrl ?>admin/galeria/<?= $edit?'update/'.$foto['idimg']:'store' ?>"
       method="post" enctype="multipart/form-data" style="max-width:600px">
 
   <div class="mb-3">
@@ -41,7 +41,7 @@ $edit = $foto !== null;
   </div>
 
   <button class="btn btn-success"><?= $edit?'Actualizar':'Subir' ?></button>
-  <a href="../admin/galeria" class="btn btn-secondary">Cancelar</a>
+  <a href="<?= $baseUrl ?>admin/galeria" class="btn btn-secondary">Cancelar</a>
 </form>
 
 <?php include __DIR__.'/../layout/footer.php'; ?>

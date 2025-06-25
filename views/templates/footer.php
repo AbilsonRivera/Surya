@@ -3,7 +3,7 @@
       <img src="img/imagen_2025-03-22_175826684-removebg-preview.png" alt="Logo">
     </div>
     <nav class="menu my-3">
-      <a href="/somos">Somos</a>
+      <a href="/somos">Somos Surya</a>
       <a href="/mente">Mente</a>
       <a href="/cuerpo">Cuerpo</a>
       <a href="/alma">Alma</a>

@@ -33,28 +33,30 @@
                     style="width: 100%; height: auto; object-fit: cover;">
             </div>
 
-            <div class="col-md-6 col-12 my-5">
+            <div class="col-md-6 col-12 my-5 d-flex justify-content-center">
                 <div class="row">
                     <div class="col-12 mb-4 d-flex align-items-center">
-                        <img class="me-3" src="img/iconos/icon-location.png" alt="Icono" style="width: 50px; height: 50px;">
+                        <img class="me-3" src="img/iconos/icon-location.png" alt="Icono"
+                            style="width: 50px; height: 50px;">
                         <div class="contacto-info-container">
                             <h5 class="contacto-info-item">Calle 4 10A-47 Barrio Altico</h5>
                         </div>
                     </div>
                     <div class="col-12 mb-4 d-flex align-items-center">
-                        <img class="me-3" src="img/iconos/icon-phone.png" alt="Icono" style="width: 50px; height: 50px;">
-                        <div class="contacto-info-container">
-                            <a href="https://wa.me/573150922525" target="_blank"
-                                style="text-decoration: none; color: white;">
-                                <h5 class="contacto-info-item" style="cursor: pointer; transition: color 0.3s ease; color: white;"
-                                    onmouseover="this.style.color='#25d366'" onmouseout="this.style.color='white'">
-                                    3150922525
-                                </h5>
-                            </a>
+                        <img class="me-3" src="img/iconos/icon-phone.png" alt="Icono"
+                            style="width: 50px; height: 50px;">
+                        <div class="contacto-info-container" style="cursor:pointer;"
+                            onclick="window.open('https://wa.me/573150922525','_blank')">
+                            <h5 class="contacto-info-item"
+                                style="transition: color 0.3s ease; color: white;"
+                                onmouseover="this.style.color='#25d366'" onmouseout="this.style.color='white'">
+                                3150922525
+                            </h5>
                         </div>
                     </div>
                     <div class="col-12 mb-4 d-flex align-items-center">
-                        <img class="me-3" src="img/iconos/icon-email.png" alt="Icono" style="width: 50px; height: 50px;">
+                        <img class="me-3" src="img/iconos/icon-email.png" alt="Icono"
+                            style="width: 50px; height: 50px;">
                         <div class="contacto-info-container">
                             <h5 class="contacto-info-item">gerencia@suryavital.com</h5>
                         </div>

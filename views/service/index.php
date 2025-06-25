@@ -51,9 +51,12 @@ $heroImg = !empty($servicio['image'])
                 </div>
             <?php endforeach; ?>
             
-            <?php if ($servicio['slug'] == "alma"): ?>
-                <!-- Sección del Formulario -->
-                <?php require_once 'views/reservas/index.php'; ?>
+            <?php if ($servicio['slug'] == "alma" || $servicio['slug'] == "mente"): ?>
+                <?php 
+                    // Pasar el slug de la página actual a la vista de reservas
+                    $pagina_destino_actual = $servicio['slug'];
+                    require 'views/reservas/index.php'; 
+                ?>
             <?php endif; ?>
         <?php else : ?>
             <!-- ===== Cuerpo ===== -->

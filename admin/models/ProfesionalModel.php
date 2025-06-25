@@ -41,8 +41,8 @@ class ProfesionalModel
         $pdo = Database::connect();
         $sql = "INSERT INTO profesionales
                   (nombre,slug,idesp,id_servicio,email,
-                   telefono,descripcion,foto)
-                VALUES (?,?,?,?,?,?,?,?)";
+                   telefono,descripcion,foto,pagina_destino)
+                VALUES (?,?,?,?,?,?,?,?,?)";
         $pdo->prepare($sql)->execute([
             $data['nombre'],
             $data['slug'],
@@ -51,7 +51,8 @@ class ProfesionalModel
             $data['email']      ?: null,
             $data['telefono']   ?: null,
             $data['descripcion']?? '',
-            $foto
+            $foto,
+            $data['pagina_destino'] ?? 'ambos'
         ]);
 
         $nuevoId = (int)$pdo->lastInsertId();
@@ -72,7 +73,8 @@ class ProfesionalModel
                    id_servicio = ?,
                    email       = ?,
                    telefono    = ?,
-                   descripcion = ?"
+                   descripcion = ?,
+                   pagina_destino = ?"
                . ($foto ? ", foto = '$foto'" : '')
                . " WHERE idprof = ?";
         Database::connect()->prepare($sql)->execute([
@@ -83,6 +85,7 @@ class ProfesionalModel
             $data['email']      ?: null,
             $data['telefono']   ?: null,
             $data['descripcion']?? '',
+            $data['pagina_destino'] ?? 'ambos',
             $id
         ]);
 

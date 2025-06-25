@@ -33,11 +33,17 @@
                                 }
                                 
                                 // Mostrar botones en el orden personalizado
+                                $calendarioId = null;
                                 foreach ($ordenFiltros as $nombreServicio) {
                                     if (isset($tiposOrdenados[$nombreServicio])) {
                                         $tipo = $tiposOrdenados[$nombreServicio];
+                                        // Guardar el id de Calendario para usarlo en el JS
+                                        if ($nombreServicio === 'Calendario') {
+                                            $calendarioId = $tipo['id'];
+                                        }
                                         ?>
-                                <button type="button" class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark mb-2"
+                                <button type="button"
+                                    class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark mb-2<?= $nombreServicio === 'Calendario' ? ' active' : '' ?>"
                                     data-filtro="<?= $tipo['id'] ?>">
                                     <?= htmlspecialchars($tipo['servicio']) ?>
                                 </button>
@@ -57,16 +63,26 @@
                                 <?php
                                 }
                                 
-                                // Finalmente mostrar "Todo" al final
+                                // Finalmente mostrar "Todo" al final, sin la clase active
                                 ?>
-                                <button type="button"
-                                    class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark active mb-2"
+                                <button type="button" class="col-sm-6 col-md-3 col-lg-2 btn btn-outline-dark mb-2"
                                     data-filtro="all">Todo</button>
                             </div>
                         </div>
                     </div>
                     <!-- Cards de clases -->
-                    <?php foreach ($clases as $clase): ?>
+                    <?php
+                    // Determinar el destino actual (por defecto alma si no está definido)
+$pagina_destino_actual = isset($pagina_destino_actual) ? strtolower($pagina_destino_actual) : 'alma';
+
+// Filtrar clases según el destino actual
+$clasesFiltradas = array_filter($clases, function($clase) use ($pagina_destino_actual) {
+    if (!isset($clase['pagina_destino'])) return false;
+    $destino = strtolower($clase['pagina_destino']);
+    return $destino === 'ambos' || $destino === $pagina_destino_actual;
+});
+                    ?>
+                    <?php foreach ($clasesFiltradas as $clase): ?>
                     <div class="col-sm-6 col-md-4 col-lg-3 clase-item" data-categoria="<?= $clase['id_servicio'] ?>">
                         <div class="card-clases-reservas">
                             <div class="row" style="width: 100%; margin: 0;">
@@ -119,7 +135,15 @@
                             </div>
                         </div>
                     </div>
-                    <?php foreach ($paquetes as $paquete): ?>
+                    <?php
+                    // Filtrar paquetes según el destino actual
+$paquetesFiltrados = array_filter($paquetes, function($paquete) use ($pagina_destino_actual) {
+    if (!isset($paquete['pagina_destino'])) return false;
+    $destino = strtolower($paquete['pagina_destino']);
+    return $destino === 'ambos' || $destino === $pagina_destino_actual;
+});
+                    ?>
+                    <?php foreach ($paquetesFiltrados as $paquete): ?>
                     <div class="col-sm-6 col-md-4 col-lg-3 paquete" data-paquete="<?= $paquete['id_servicio'] ?>">
                         <div class="card-clases">
                             <div class="row" style="width: 100%; margin: 0;">
@@ -157,6 +181,25 @@
 
 <!-- Filtro de servicios y carga de calendario -->
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleccionar el botón de Calendario por defecto
+    var calendarioBtn = document.querySelector('[data-filtro="<?= $calendarioId ?>"]');
+    if (calendarioBtn) {
+        calendarioBtn.classList.add('active');
+        calendarioBtn.click(); // Disparar el filtro de Calendario al cargar
+    }
+
+    // Seleccionar el botón de "Todo" en paquetes por defecto
+    var btnTodoPaquete = document.querySelector('[data-filtro-paquete="all"]');
+    if (btnTodoPaquete) {
+        btnTodoPaquete.classList.add('active');
+        // Mostrar todos los paquetes al cargar
+        document.querySelectorAll('.paquete').forEach(card => {
+            card.style.display = 'block';
+        });
+    }
+});
+
 document.querySelectorAll('[data-filtro]').forEach(btn => {
     btn.addEventListener('click', () => {
         const categoria = btn.getAttribute('data-filtro');
@@ -172,7 +215,7 @@ document.querySelectorAll('[data-filtro]').forEach(btn => {
 
         // Mostrar calendario solo si es "Calendario" (ID = 1)
         const calendario = document.getElementById('zonaCalendario');
-        
+
         if (categoria === '1') {
             calendario.style.display = 'block';
             cargarCalendarioServicio(categoria);
@@ -196,7 +239,7 @@ function cargarCalendarioServicio(idServicio) {
 
     fetch('./controllers/CalendarioDisponible.php?id_servicio=' + idServicio)
         .then(r => r.json())
-        .then(data => {
+        .then (data => {
             // <<--- AGREGA ESTE LOG:
             console.log("Respuesta del backend (FullCalendar):", data);
 
@@ -241,3 +284,19 @@ document.querySelectorAll('[data-filtro-paquete]').forEach(btn => {
     });
 });
 </script>
+
+<style>
+
+.btn-outline-dark.active,
+.btn-outline-dark:active,
+.btn-outline-dark:focus {
+    background-color: rgb(206, 144, 34) !important;
+    color: white !important;
+    border: 1px solid #212529 !important;
+}
+.btn-outline-dark:hover {
+    background-color: rgb(206, 144, 34) !important;
+    color: white !important;
+    border: 1px solid #212529 !important;
+}
+</style>

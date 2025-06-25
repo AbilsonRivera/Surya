@@ -13,7 +13,7 @@
             <label>Tipo</label>
             <select name="tipo" class="form-control" required>
                 <option value="">Seleccionar tipo</option>
-                <option value="administrador" <?= ($miembros['tipo'] == 'administrador') ? 'selected' : '' ?>>Administrador/a</option>
+                <option value="fundador" <?= ($miembros['tipo'] == 'fundador') ? 'selected' : '' ?>>Fundador/a</option>
                 <option value="profesor" <?= ($miembros['tipo'] == 'profesor') ? 'selected' : '' ?>>Profesor/a</option>
             </select>
         </div>

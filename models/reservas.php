@@ -15,7 +15,8 @@ class Reservas
                        p.slug,
                        p.foto      AS imagen,
                        p.descripcion,
-                       p.id_servicio
+                       p.id_servicio,
+                       p.pagina_destino
                 FROM   profesionales p
                 LEFT  JOIN especialidades e ON e.idesp = p.idesp
                 WHERE  p.is_activo = 1
@@ -47,6 +48,7 @@ class Reservas
                     p.slug,
                     p.descripcion,
                     p.id_servicio,
+                    p.pagina_destino,
                     v.num_clases                      AS clases,
                     v.dias_vigencia                   AS vigencia,
                     COALESCE(pr.precio,0)             AS precio
@@ -63,7 +65,7 @@ class Reservas
 
     public static function getPaqueteId(string $slug): ?array
     {
-        $sql = "SELECT p.*,
+        $sql = "SELECT p.*, p.pagina_destino,
                        v.num_clases,
                        v.dias_vigencia,
                        pr.precio
