@@ -1983,3 +1983,134 @@ p, .description,
     text-align: center;
     color: white;
 }
+
+.sidebar.citas-sidebar {
+  width:230px;
+  background: var(--color-secondary, #3F3E2A);
+  color:#fff;
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  min-height: 100vh;
+  transition: left 0.25s;
+  position: relative;
+  z-index: 1;
+}
+.sidebar.citas-sidebar .sidebar-toggle {
+  display: none;
+  background: #fff;
+  border: none;
+  color: #000;
+  font-size: 2rem;
+  margin: 0.5em 0 0 1em;
+  align-self: flex-start;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  transition: background 0.18s, color 0.18s;
+}
+.sidebar.citas-sidebar .sidebar-toggle:active, .sidebar.citas-sidebar .sidebar-toggle:focus {
+  background: #000;
+  color: #fff;
+}
+.sidebar.citas-sidebar .sidebar-toggle-icon {
+  font-size: 2rem;
+  color: #000;
+}
+@media (max-width: 991px) {
+  .sidebar.citas-sidebar {
+    position: fixed;
+    left: -230px;
+    top: 0;
+    height: 100vh;
+    width: 230px;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+    transition: left 0.25s;
+  }
+  .sidebar.citas-sidebar.open {
+    left: 0;
+  }
+  .sidebar.citas-sidebar .sidebar-toggle {
+    display: block;
+    position: absolute;
+    left: 100%;
+    top: 10px;
+    z-index: 101;
+  }
+  .my-0.d-flex {
+    flex-direction: column;
+  }
+}
+@media (max-width: 575px) {
+  .sidebar.citas-sidebar {
+    width: 90vw;
+    left: -90vw;
+  }
+  .sidebar.citas-sidebar.open {
+    left: 0;
+  }
+}
+
+/* ============================= */
+/* Botones primarios Surya       */
+/* ============================= */
+.btn.btn-primary {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(213,154,53,0.10);
+  transition: background 0.18s, border 0.18s, color 0.18s;
+}
+.btn.btn-primary:hover, .btn.btn-primary:focus {
+  background-color: var(--color-hover) !important;
+  border-color: var(--color-hover) !important;
+  color: #fff !important;
+}
+.btn.btn-outline-primary {
+  color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  background: transparent !important;
+  font-weight: 600;
+  transition: background 0.18s, border 0.18s, color 0.18s;
+}
+.btn.btn-outline-primary:hover, .btn.btn-outline-primary:focus {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  border-color: var(--color-hover) !important;
+}
+
+/* Sidebar toggle botón hamburguesa */
+.sidebar-toggle {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  top: auto;
+  z-index: 1050;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  background: #fff;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.18s, border 0.18s;
+}
+.sidebar-toggle-icon {
+  font-size: 2.2rem;
+  color: var(--color-primary);
+}
+
+/* Logo sidebar responsive */
+.citas-sidebar .text-center.my-3 img {
+  max-width: 140px;
+  height: auto;
+}
+@media (max-width: 767px) {
+  .citas-sidebar .text-center.my-3 img {
+    max-width: 120px;
+  }
+}

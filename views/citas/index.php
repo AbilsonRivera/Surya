@@ -18,7 +18,10 @@
 </style>
 
 <div class="my-0 d-flex">
-  <nav class="sidebar">
+  <nav class="sidebar citas-sidebar">
+    <button id="sidebarToggle" class="sidebar-toggle d-md-none" aria-label="Abrir menú" style="position:fixed;left:20px;bottom:20px;top:auto;z-index:1050;box-shadow:0 2px 12px rgba(0,0,0,0.18);background:#fff;border:2px solid #d59a35;color:#d59a35;width:54px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background 0.18s,border 0.18s;">
+      <span class="sidebar-toggle-icon" style="font-size:2.2rem;color:#d59a35;">&#9776;</span>
+    </button>
     <div class="text-center my-3">
       <img src="<?= $baseUrl ?>img/logo/logo.png" style="max-width:140px" alt="logo">
     </div>
@@ -61,7 +64,24 @@
 
     <section id="mi-paquete">
       <h3 class="mb-4">Mis Paquetes</h3>
-      <p>Paquete 1</p>
+      <?php if (!empty($paquetes_virtuales)): ?>
+        <div class="row">
+          <?php foreach ($paquetes_virtuales as $paq): ?>
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card h-100 shadow-sm">
+                <img src="<?= $baseUrl . 'img/' . htmlspecialchars($paq['foto'] ?? $paq['imagen'] ?? 'placeholder.jpg') ?>" class="card-img-top" alt="<?= htmlspecialchars($paq['nombre']) ?>">
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title mb-2"><?= htmlspecialchars($paq['nombre']) ?></h5>
+                  <p class="card-text small mb-2"><?= nl2br(htmlspecialchars($paq['descripcion'])) ?></p>
+                  <a href="<?= $baseUrl ?>mi-paquete/<?= urlencode($paq['slug']) ?>" class="btn btn-outline-primary mt-auto">Ver</a>
+                </div>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      <?php else: ?>
+        <p>No tienes paquetes virtuales adquiridos actualmente.</p>
+      <?php endif; ?>
     </section>
   </main>
 </div>
@@ -112,15 +132,55 @@
 <?php endif; ?>
 
 <script>
+  // Toggle sidebar en móvil
+  const sidebar = document.querySelector('.sidebar');
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  // Mostrar/ocultar toggle según estado del sidebar
+  function updateSidebarToggle() {
+    if (window.innerWidth < 992) {
+      if (sidebar.classList.contains('open')) {
+        sidebarToggle.style.display = 'none';
+      } else {
+        sidebarToggle.style.display = 'flex';
+      }
+    } else {
+      sidebarToggle.style.display = 'none';
+    }
+  }
+  sidebarToggle.addEventListener('click', function() {
+    sidebar.classList.toggle('open');
+    setTimeout(updateSidebarToggle, 100);
+  });
+  // Cerrar sidebar al hacer click en un enlace del nav
+  document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+    link.addEventListener('click', function() {
+      if (window.innerWidth < 992) {
+        sidebar.classList.remove('open');
+        setTimeout(updateSidebarToggle, 200);
+      }
+    });
+  });
+  // Cerrar sidebar al hacer click fuera del nav en móvil
+  document.addEventListener('click', function(e) {
+    if (window.innerWidth < 992 && sidebar.classList.contains('open')) {
+      if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+        sidebar.classList.remove('open');
+        setTimeout(updateSidebarToggle, 200);
+      }
+    }
+  });
+  // Mostrar/ocultar toggle al redimensionar
+  window.addEventListener('resize', updateSidebarToggle);
+  // Inicializar estado del toggle
+  updateSidebarToggle();
+  // Mostrar la primera sección al cargar la página
+  document.querySelector('main section').classList.add('active');
+  // Navegación entre secciones
   document.querySelectorAll('.nav-link.link-nav').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-
-      // Activar el enlace seleccionado
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
       this.classList.add('active');
-
-      // Mostrar la sección correspondiente
       const target = this.getAttribute('href');
       document.querySelectorAll('main section').forEach(sec => {
         sec.classList.remove('active');
@@ -128,8 +188,5 @@
       document.querySelector(target).classList.add('active');
     });
   });
-
-  // Mostrar la primera sección al cargar la página
-  document.querySelector('main section').classList.add('active');
 </script>
 <?php require 'views/templates/footer.php'; ?>

@@ -49,7 +49,7 @@ public function edit($idprof)
 
     public function update($idprof)
     {
-        ProfesionalModel::actualizar($idprof, $_POST, $_FILES['foto']);
+        ProfesionalModel::actualizar($idprof, $_POST, $_FILES['foto'] ?? []);
         $baseUrl = $this->getBaseUrl();
         header('Location: ' . $baseUrl . 'admin/agenda/profesionales');
     }

@@ -45,6 +45,7 @@
              class="btn btn-sm btn-primary mb-1">Editar</a>
           <a href="<?= $baseUrl ?>admin/agenda/<?= $p['idprof'] ?>/config"
              class="btn btn-sm btn-warning">Agenda</a>
+          <button class="btn btn-sm btn-danger mb-1" onclick="eliminarProfesional(<?= $p['idprof'] ?>, '<?= htmlspecialchars($p['nombre']) ?>')">Eliminar</button>
         </td>
       </tr>
     <?php endforeach; ?>
@@ -56,5 +57,13 @@
     </tbody>
   </table>
 </div>
+
+<script>
+function eliminarProfesional(id, nombre) {
+  if (confirm('¿Seguro que deseas eliminar a "' + nombre + '"? Esta acción no se puede deshacer.')) {
+    window.location.href = '<?= $baseUrl ?>admin/agenda/profesionales/delete/' + id;
+  }
+}
+</script>
 
 <?php include __DIR__.'/../../layout/footer.php'; ?>

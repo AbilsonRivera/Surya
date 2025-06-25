@@ -85,6 +85,12 @@
     <!-- Foto -->
     <div class="mb-3">
         <label class="form-label">Foto</label>
+        <?php if (isset($prof) && !empty($prof['foto'])): ?>
+            <div class="mb-2">
+                <img src="<?= $baseUrl . 'img/' . htmlspecialchars($prof['foto']) ?>" alt="Foto actual" style="max-width:120px;max-height:120px;object-fit:cover;">
+                <input type="hidden" name="foto_actual" value="<?= htmlspecialchars($prof['foto']) ?>">
+            </div>
+        <?php endif; ?>
         <input type="file" name="foto" class="form-control" <?= isset($prof)?'':'required'; ?>>
     </div>
 
@@ -96,6 +102,50 @@
             <option value="mente" <?= (isset($prof) && ($prof['pagina_destino'] ?? '') == 'mente') ? 'selected' : '' ?>>Mente</option>
             <option value="alma" <?= (isset($prof) && ($prof['pagina_destino'] ?? '') == 'alma') ? 'selected' : '' ?>>Alma</option>
         </select>
+    </div>
+
+    <!-- Campos de contenido virtual (solo para paquetes virtuales) -->
+    <div id="virtualFields" class="mb-3 d-none">
+        <div id="contenidoVirtual" class="d-none">
+            <label class="form-label">Videos del curso (YouTube)</label>
+            <div id="videosContainer">
+                <?php if (isset($prof) && !empty($prof['videos'])): ?>
+                    <?php $videos = is_array($prof['videos']) ? $prof['videos'] : json_decode($prof['videos'], true); ?>
+                    <?php if ($videos && is_array($videos)): ?>
+                        <?php foreach ($videos as $video): ?>
+                            <div class="input-group mb-2">
+                                <input type="url" name="videos[]" class="form-control video-link" value="<?= htmlspecialchars($video) ?>" placeholder="Link de YouTube">
+                                <span class="input-group-text p-0"><img src="<?php
+                                    if (preg_match('~(?:youtu.be/|youtube.com/(?:embed/|v/|watch\?v=))([\w-]{11})~', $video, $yt)) {
+                                        echo 'https://img.youtube.com/vi/' . $yt[1] . '/mqdefault.jpg';
+                                    } ?>" class="miniatura-video" style="width:60px;height:34px;object-fit:cover;<?= (preg_match('~(?:youtu.be/|youtube.com/(?:embed/|v/|watch\?v=))([\w-]{11})~', $video)) ? '' : 'display:none;' ?>"></span>
+                                <button type="button" class="btn btn-outline-danger btn-sm quitarVideo">Quitar</button>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </div>
+            <button type="button" class="btn btn-outline-secondary btn-sm mb-2" id="agregarVideo">Agregar video</button>
+            <div class="mb-3">
+                <label class="form-label">Adjuntar material (PDF, PPT, DOC, DOCX)</label>
+                <?php if (isset($prof) && !empty($prof['material_adjunto'])): ?>
+                    <?php $archivos = is_array($prof['material_adjunto']) ? $prof['material_adjunto'] : json_decode($prof['material_adjunto'], true); ?>
+                    <?php if ($archivos && is_array($archivos)): ?>
+                        <ul class="list-unstyled" id="lista-archivos-actuales">
+                        <?php foreach ($archivos as $i => $archivo): ?>
+                            <li class="d-flex align-items-center gap-2 archivo-actual">
+                                <a href="<?= $baseUrl . htmlspecialchars($archivo) ?>" target="_blank">Descargar <?= htmlspecialchars(basename($archivo)) ?></a>
+                                <input type="hidden" name="material_adjunto_actual[]" value="<?= htmlspecialchars($archivo) ?>">
+                                <button type="button" class="btn btn-sm btn-outline-danger quitar-archivo" title="Eliminar este documento">Eliminar</button>
+                            </li>
+                        <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                <?php endif; ?>
+                <input type="file" name="material_adjunto[]" class="form-control" multiple accept=".pdf,.ppt,.pptx,.doc,.docx" id="inputMaterialAdjunto">
+                <ul class="list-unstyled mt-2" id="lista-archivos-nuevos"></ul>
+            </div>
+        </div>
     </div>
 
     <!-- ocultos precio / descuento -->
@@ -249,4 +299,93 @@ function confirmarEliminar() {
         <?php endif; ?>
     }
 }
+
+/* Lógica para mostrar campos virtuales SOLO si es Paquete y Servicio=Virtual */
+function inicializarAgregarVideo() {
+    const videosContainer = document.getElementById('videosContainer');
+    const btnAgregar = document.getElementById('agregarVideo');
+    if (!btnAgregar) return;
+    btnAgregar.onclick = function() {
+        const idx = videosContainer.children.length;
+        const div = document.createElement('div');
+        div.className = 'input-group mb-2';
+        div.innerHTML = `
+            <input type="url" name="videos[]" class="form-control video-link" placeholder="Link de YouTube">
+            <span class="input-group-text p-0"><img src="" class="miniatura-video" style="width:60px;height:34px;object-fit:cover;display:none;"></span>
+            <button type="button" class="btn btn-outline-danger btn-sm quitarVideo">Quitar</button>
+        `;
+        videosContainer.appendChild(div);
+        // Evento para quitar
+        div.querySelector('.quitarVideo').onclick = () => div.remove();
+        // Evento para mostrar miniatura
+        div.querySelector('.video-link').addEventListener('input', function() {
+            const url = this.value;
+            const img = div.querySelector('.miniatura-video');
+            const ytId = url.match(/(?:youtu.be\/|v=|\/embed\/|\/shorts\/|\/watch\?v=)([\w-]{11})/);
+            if (ytId && ytId[1]) {
+                img.src = `https://img.youtube.com/vi/${ytId[1]}/mqdefault.jpg`;
+                img.style.display = '';
+            } else {
+                img.src = '';
+                img.style.display = 'none';
+            }
+        });
+    };
+}
+
+function mostrarCamposVirtuales() {
+    const nombreEsp = selEsp.options[selEsp.selectedIndex]?.dataset.nombre || '';
+    const esPaquete = nombreEsp.toLowerCase() === 'paquete';
+    let esVirtual = false;
+    if (esPaquete) {
+        const servSel = selServ.options[selServ.selectedIndex]?.textContent.trim().toLowerCase() || '';
+        esVirtual = servSel === 'virtual';
+    }
+    document.getElementById('virtualFields').classList.toggle('d-none', !esPaquete);
+    document.getElementById('contenidoVirtual').classList.toggle('d-none', !(esPaquete && esVirtual));
+    if (esPaquete && esVirtual) {
+        inicializarAgregarVideo();
+    }
+}
+selEsp.addEventListener('change', mostrarCamposVirtuales);
+selServ.addEventListener('change', mostrarCamposVirtuales);
+mostrarCamposVirtuales();
+
+// Mostrar campos de contenido si es virtual
+const esVirtualCheckbox = document.getElementById('esVirtual');
+if (esVirtualCheckbox) {
+    esVirtualCheckbox.addEventListener('change', function() {
+        document.getElementById('contenidoVirtual').classList.toggle('d-none', !this.checked);
+    });
+}
+
+// Eliminar archivo adjunto existente del formulario (solo visual, no lo envía)
+document.querySelectorAll('.quitar-archivo').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const li = this.closest('li');
+        if (li) li.remove();
+    });
+});
+// Mostrar y eliminar archivos seleccionados antes de guardar
+document.getElementById('inputMaterialAdjunto').addEventListener('change', function(e) {
+    const lista = document.getElementById('lista-archivos-nuevos');
+    lista.innerHTML = '';
+    Array.from(this.files).forEach((file, idx) => {
+        const li = document.createElement('li');
+        li.className = 'd-flex align-items-center gap-2 archivo-nuevo';
+        li.innerHTML = `<span>${file.name}</span> <button type="button" class="btn btn-sm btn-outline-danger quitar-archivo-nuevo" data-idx="${idx}">Eliminar</button>`;
+        lista.appendChild(li);
+    });
+    // Eliminar archivo del input file visualmente (no del input real, pero se ignora al enviar)
+    lista.querySelectorAll('.quitar-archivo-nuevo').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const li = this.closest('li');
+            if (li) li.remove();
+            // Quitar el archivo del input file (no se puede modificar FileList, pero se oculta visualmente)
+            // Se recomienda recargar el input si se elimina alguno
+            document.getElementById('inputMaterialAdjunto').value = '';
+            lista.innerHTML = '';
+        });
+    });
+});
 </script>

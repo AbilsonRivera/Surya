@@ -79,6 +79,11 @@ if (isset($routes[$url])) {                         // home, etc.
 }elseif ($url === 'citas/guardar') {
     (new CitasFrontController)->guardar(); exit;
 
+}elseif (preg_match('#^mi-paquete/(.+)$#',$url,$m)) {
+    $slug = $m[1] ?? ($_GET['slug'] ?? null);
+    $_GET['slug'] = $slug;
+    (new CitasFrontController)->paquete(); exit;
+
 /* 2-c  slug de servicio */
 }elseif ($url === 'contactoform') {
     (new ContactoController)->index(); exit;

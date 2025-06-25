@@ -205,7 +205,7 @@ public static function getHorasPorFecha($idprof, $fecha)
             $data['idprof'],
             $data['fecha'],
             $data['hora'],
-            $data['documento'],  // paciente = documento
+            $idpaciente,  // paciente = idpaciente
             $data['motivo'] ?? null
         ]);
 
@@ -216,4 +216,27 @@ public static function getHorasPorFecha($idprof, $fecha)
     }
 }
 
+/**
+     * Devuelve los paquetes virtuales adquiridos por un paciente
+     * @param int|string $idPaciente
+     * @return array
+     */
+    public static function getPaquetesVirtualesAdquiridos($idPaciente): array
+    {
+        $sql = "SELECT p.*, v.num_clases, v.dias_vigencia, pr.precio
+                FROM citas c
+                INNER JOIN profesionales p ON c.idprof = p.idprof
+                INNER JOIN especialidades e ON e.idesp = p.idesp
+                LEFT JOIN vigencias v ON v.idprof = p.idprof
+                LEFT JOIN precios pr ON pr.idprof = p.idprof
+                LEFT JOIN tbl_tipocls tc ON tc.id = p.id_servicio
+                WHERE c.paciente = ?
+                  AND e.nombre = 'Paquete'
+                  AND (tc.servicio = 'Virtual' OR p.pagina_destino = 'virtual')
+                GROUP BY p.idprof
+                ORDER BY p.nombre";
+        $stmt = Database::connect()->prepare($sql);
+        $stmt->execute([$idPaciente]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

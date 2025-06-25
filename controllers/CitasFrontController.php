@@ -44,6 +44,10 @@ class CitasFrontController
 
         $clases = CitaPublicModel::obtenerClasesDelPaciente($id);
 
+        // Obtener paquetes virtuales adquiridos por el usuario
+        require_once __DIR__.'/../models/reservas.php';
+        $paquetes_virtuales = Reservas::getPaquetesVirtualesAdquiridos($id);
+
         require 'views/citas/index.php';
     }
 
@@ -122,5 +126,33 @@ class CitasFrontController
             http_response_code(409);
             echo 'ocupado';
         }
+    }
+
+    public function paquete() {
+        session_start();
+        if (!isset($_SESSION['aid'])) {
+            header('Location: /admin');
+            exit;
+        }
+        $idUsuario = $_SESSION['aid'];
+        $slug = $_GET['slug'] ?? null;
+        if (!$slug) {
+            header('Location: /mi-perfil');
+            exit;
+        }
+        require_once __DIR__.'/../models/reservas.php';
+        $paquetes = Reservas::getPaquetesVirtualesAdquiridos($idUsuario);
+        $paquete = null;
+        foreach ($paquetes as $p) {
+            if ($p['slug'] === $slug) {
+                $paquete = $p;
+                break;
+            }
+        }
+        if (!$paquete) {
+            header('Location: /mi-perfil#mi-paquete&error=acceso');
+            exit;
+        }
+        require __DIR__.'/../views/citas/paquete.php';
     }
 }
