@@ -27,6 +27,8 @@ public function edit($idprof)
     $prof           = ProfesionalModel::find($idprof);
     $especialidades = EspecialidadModel::all();
     $tipos          = TipoClaseModel::all();    // ← NUEVO
+    require_once __DIR__ . '/../models/PrecioModel.php';
+    $precio = PrecioModel::getByIdProf($idprof); // Obtener precio y descuento
     require 'admin/views/agenda/profesionales/form.php';
 }    /* ------------- GUARDAR ------------ */
     public function store()

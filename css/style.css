@@ -2117,5 +2117,5 @@ p, .description,
   transition: transform 0.25s cubic-bezier(.4,2,.6,1);
 }
 .contacto-info-container-numero:hover {
-  transform: scale(1.12);
+  transform: scale(1.03);
 }

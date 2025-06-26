@@ -9,6 +9,14 @@ class Cita {
         return $stmt->execute([$idprof, $fecha, $hora, $paciente, $motivo]);
     }
 
+    // Nuevo: Verifica si el usuario ya tiene reserva para ese horario
+    public static function existeReservaUsuario($idprof, $fecha, $hora, $paciente) {
+        $db = Database::connect();
+        $stmt = $db->prepare("SELECT COUNT(*) FROM citas WHERE idprof=? AND fecha=? AND hora=? AND paciente=? AND estado <> 'cancelada'");
+        $stmt->execute([$idprof, $fecha, $hora, $paciente]);
+        return $stmt->fetchColumn() > 0;
+    }
+
    // Horas ocupadas por cualquier usuario en ese día
 public static function horasOcupadas($idprof, $fecha) {
     $db = Database::connect();

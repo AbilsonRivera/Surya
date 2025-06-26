@@ -16,9 +16,11 @@ class Reservas
                        p.foto      AS imagen,
                        p.descripcion,
                        p.id_servicio,
-                       p.pagina_destino
+                       p.pagina_destino,
+                       pr.precio
                 FROM   profesionales p
                 LEFT  JOIN especialidades e ON e.idesp = p.idesp
+                LEFT  JOIN precios pr ON pr.idprof = p.idprof
                 WHERE  p.is_activo = 1
                   AND  (e.nombre IS NULL OR e.nombre <> 'Paquete')
                 ORDER  BY p.nombre";

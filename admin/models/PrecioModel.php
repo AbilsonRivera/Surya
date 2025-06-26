@@ -23,6 +23,15 @@ class PrecioModel
         return $s->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
+/** Devuelve ['precio'=>..., 'descuento'=>...] o null, buscando por idprof */
+    public static function getByIdProf(int $idprof): ?array
+    {
+        $sql = "SELECT precio, descuento FROM precios WHERE idprof = ? LIMIT 1";
+        $s = Database::connect()->prepare($sql);
+        $s->execute([$idprof]);
+        return $s->fetch(PDO::FETCH_ASSOC) ?: null;
+    }
+
 
 
 public static function upsert(int $idprof, float $precio, float $descuento): void

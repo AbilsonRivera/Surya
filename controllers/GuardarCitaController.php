@@ -22,13 +22,17 @@ $fecha    = $_POST['fecha']    ?? null;
 $hora     = $_POST['hora']     ?? null;
 $motivo   = $_POST['motivo']   ?? null;
 
-
-
 // El paciente lo tomamos de la sesión (ideal: guardar el número de documento o correo en $_SESSION al iniciar sesión)
 $paciente = $_SESSION['aid'] ?? 0; // O el dato correcto (ajusta si tienes el documento en $_SESSION['adocumento'])
 
 if (!$idprof || !$fecha || !$hora || !$paciente) {
     echo json_encode(['ok' => false, 'msg' => 'Datos incompletos']);
+    exit;
+}
+
+// Nuevo: Verificar si ya existe una reserva igual para este usuario
+if (Cita::existeReservaUsuario($idprof, $fecha, $hora, $paciente)) {
+    echo json_encode(['ok' => false, 'msg' => 'Ya hiciste la reserva para esta clase y horario.']);
     exit;
 }
 

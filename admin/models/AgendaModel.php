@@ -97,12 +97,7 @@ class AgendaModel
         if (strtotime($d['hora_ini']) >= strtotime($d['hora_fin'])) {
             throw new Exception('La hora de inicio debe ser menor que la hora de fin');
         }
-
-        // Duración entre 10 y 60, múltiplo de 10
-        $dur = (int)$d['duracion'];
-        if ($dur < 10 || $dur > 60 || $dur % 10 !== 0) {
-            throw new Exception('La duración debe ser 10,20,30,40,50 ó 60 min.');
-        }
+        // Ya no se valida duración fija, se permite cualquier duración positiva
     }
     
     public static function find(int $idconf): ?array

@@ -95,6 +95,15 @@ $clasesFiltradas = array_filter($clases, function($clase) use ($pagina_destino_a
                                     <p class="mt-2" style="text-align: justify;">
                                         <?= htmlspecialchars($clase['descripcion']) ?></p>
                                 </div>
+                                <div class="col-12 px-3 py-0">
+                                    <p class="mb-1"><strong>Precio: </strong>
+                                        <?php if (isset($clase['precio']) && $clase['precio'] !== null): ?>
+                                            $<?= number_format((float)$clase['precio'], 0, ',', '.') ?>
+                                        <?php else: ?>
+                                            <span class="text-muted">No disponible</span>
+                                        <?php endif; ?>
+                                    </p>
+                                </div>
                             </div>
                             <div class="py-2">
                                 <a href="./servicios/clase/<?= htmlspecialchars($clase['slug']) ?>"
@@ -239,7 +248,7 @@ function cargarCalendarioServicio(idServicio) {
 
     fetch('./controllers/CalendarioDisponible.php?id_servicio=' + idServicio)
         .then(r => r.json())
-        .then (data => {
+        .then(data => {
             // <<--- AGREGA ESTE LOG:
             console.log("Respuesta del backend (FullCalendar):", data);
 
@@ -286,7 +295,6 @@ document.querySelectorAll('[data-filtro-paquete]').forEach(btn => {
 </script>
 
 <style>
-
 .btn-outline-dark.active,
 .btn-outline-dark:active,
 .btn-outline-dark:focus {
@@ -294,6 +302,7 @@ document.querySelectorAll('[data-filtro-paquete]').forEach(btn => {
     color: white !important;
     border: 1px solid #212529 !important;
 }
+
 .btn-outline-dark:hover {
     background-color: rgb(206, 144, 34) !important;
     color: white !important;

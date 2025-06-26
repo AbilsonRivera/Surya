@@ -43,19 +43,25 @@ $durSel = $franja['duracion']  ?? 20;
          value="<?= $edit ? htmlspecialchars($franja['hora_fin']) : '' ?>">
 </div>
 
-  
-  <div class="mb-3">
-    <label class="form-label">Duración de cada consulta (min)</label>
-    <select name="duracion" class="form-select" required>
-      <?php foreach([10,20,30,40,50,60] as $m): ?>
-        <option value="<?= $m ?>" <?= $m == $durSel ? 'selected' : '' ?>>
-          <?= $m ?> min
-        </option>
-      <?php endforeach; ?>
-    </select>
-  </div>
+  <input type="hidden" name="duracion" id="duracionHidden" value="<?= $edit ? (int)$franja['duracion'] : 0 ?>">
   <button class="btn btn-success">Guardar</button>
   <a href="<?= $baseUrl ?>admin/agenda/<?= $prof['idprof'] ?>/config" class="btn btn-secondary">Cancelar</a>
 </form>
 
 <?php include __DIR__.'/../../layout/footer.php'; ?>
+
+<script>
+// Calcular duración automáticamente al enviar el formulario
+const form = document.querySelector('form');
+form.addEventListener('submit', function(e) {
+  const ini = document.querySelector('[name="hora_ini"]').value;
+  const fin = document.querySelector('[name="hora_fin"]').value;
+  if (ini && fin) {
+    const [h1, m1] = ini.split(":").map(Number);
+    const [h2, m2] = fin.split(":").map(Number);
+    let dur = (h2 * 60 + m2) - (h1 * 60 + m1);
+    if (dur < 0) dur = 0;
+    document.getElementById('duracionHidden').value = dur;
+  }
+});
+</script>
