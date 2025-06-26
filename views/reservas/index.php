@@ -246,7 +246,11 @@ function cargarCalendarioServicio(idServicio) {
     }
     document.getElementById('calendar-servicio').innerHTML = '<p>Cargando disponibilidad...</p>';
 
-    fetch('./controllers/CalendarioDisponible.php?id_servicio=' + idServicio)
+    // Obtener el destino actual desde PHP
+    var destino = "<?= isset(
+        $pagina_destino_actual) ? strtolower($pagina_destino_actual) : 'alma' ?>";
+
+    fetch('./controllers/CalendarioDisponible.php?id_servicio=' + idServicio + '&destino=' + destino)
         .then(r => r.json())
         .then(data => {
             // <<--- AGREGA ESTE LOG:
