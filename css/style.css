@@ -2112,6 +2112,23 @@ p, .description,
   }
 }
 
+/* ============================= */
+/* Días disponibles en el calendario de reservas (más visibles y sin duplicidad de clases) */
+/* ============================= */
+.cal-dia {
+    background-color: rgb(206, 144, 34) !important ;
+    color: #fff !important;
+    font-weight: bold;
+    border: 2px solid #b8860b ;
+    cursor: pointer;
+    transition: box-shadow 0.2s, filter 0.2s;
+}
+.cal-dia:hover, .cal-dia.selected {
+    background-color: #b8860b !important;
+    color: #fff !important;
+    filter: brightness(1.1);
+}
+
 /* Efecto solo para el contenedor del número de teléfono */
 .contacto-info-container-numero {
   transition: transform 0.25s cubic-bezier(.4,2,.6,1);

@@ -436,3 +436,18 @@ require_once 'views/galeria/index.php';
     }
 
 </script>
+<style>
+.btn-outline-dark.active,
+.btn-outline-dark:active,
+.btn-outline-dark:focus {
+    background-color: rgb(206, 144, 34) !important;
+    color: white !important;
+    border: 1px solid #212529 !important;
+}
+
+.btn-outline-dark:hover {
+    background-color: rgb(206, 144, 34) !important;
+    color: white !important;
+    border: 1px solid #212529 !important;
+}
+</style>
